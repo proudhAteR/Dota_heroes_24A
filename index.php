@@ -50,25 +50,32 @@
 
                 <?php
                     $attributes = array("filter-str-active.png", "filter-agi-active.png", "filter-int-active.png", "filter-uni-active.png" );
-                    for($i = 0; $i < count($attributes); $i++){
-                        echo(
-                            "   
-                            <div>
-                                <img class='img-fluid' src='public/images/{$attributes[$i]}'>
-                            </div>"
-                        );
-                    };
+                    displayAttributes($attributes);
+
+                    function displayAttributes($attributes){
+                        for($i = 0; $i < count($attributes); $i++){
+                            echo(
+                                "   
+                                <div>
+                                    <img class='img-fluid' src='public/images/{$attributes[$i]}'>
+                                </div>"
+                            );
+                        };
+                    }
                 ?>
             </div>
             <div class="d-flex attributes align-items-center ">
                 <div class="p-2 pe-3 flex-grow-1">Complexity</div>
                 <?php 
-
-                    for($i = 0; $i < 3; $i++){
-                        echo(
-                            "<div><img class='img-fluid' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
-                        );
-                    };
+                    $maxComplexity = 3;
+                    displayComplexityDiamonds($maxComplexity);
+                    function displayComplexityDiamonds($maxComplexity){
+                        for($i = 0; $i < $maxComplexity; $i++){
+                            echo(
+                                "<div><img class='img-fluid' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
+                            );
+                        };
+                    }
                 
                 ?>
                
