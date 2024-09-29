@@ -99,7 +99,7 @@ a {
   min-height: 100vh;
   background-position-x: -20vw;
   background-color: #000;
-  background-image: url(../images/background.jpg);
+  background-image: url(/public/images/background.jpg);
   background-size: 100% auto;
   background-position: center top;
   background-repeat: no-repeat;
@@ -146,21 +146,28 @@ a {
   padding: 37px !important;
 }
 
+/* Styles for Attributes */
 .attributes img {
   filter: brightness(50%) contrast(75%) grayscale(100%);
+  transition: filter 0.3s ease;
 }
 
 .attributes img:focus {
   filter: none;
+  outline: none;
 }
 
+/* Styles for Complexity */
 .complexity img {
   filter: brightness(50%) contrast(75%) grayscale(100%);
+  transition: filter 0.3s ease;
 }
 
 .complexity img:focus {
   filter: none;
+  outline: none;
 }
+
 .attributes img {
   max-width: 40px;
   max-height: 40px;

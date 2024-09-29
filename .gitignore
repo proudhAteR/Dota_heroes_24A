@@ -2,3 +2,4 @@
 docker/
 docker-compose.yml
 .DS_Store
+data/accepted-names-api.json

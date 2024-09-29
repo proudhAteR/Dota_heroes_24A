@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="./public/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/public/images/favicon.ico" type="image/x-icon">
 
     <!-- NOTE: Title is different for this page -->
     <title>Dota 2 - Anti-Mage</title>
@@ -17,20 +17,25 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="./public/stylesheets/styles.css">
+    <link rel="stylesheet" href="/public/stylesheets/styles.css?v=<?php echo time(); ?>">
+
 
     <!-- 
         TODO: Ce code JavaScript doit être enlevé. Le code est pour vous montrer l'exemple du fetch et des propriétés à utiliser pour accéder aux descriptions 
               Vous devez faire le call à l'API en PHP directement et non en JavaScript (e.g. le code ci-dessous doit être migré dans l'équivalent en PHP).
      -->
-    <script type="module">
-        fetch("https://dotacoach.gg/_next/data/hQex-UdUEDib_3-cqnDNe/en/heroes/anti-mage.json")
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.pageProps.messages["dota.heroes.npc_dota_hero_antimage.npedesc1"]);
-                console.log(data.pageProps.messages["dota.heroes.npc_dota_hero_antimage.hype"])
-            });
-    </script>
+    <?php
+    $url = $_SERVER['REQUEST_URI'];
+    $lastPart = strtolower(basename($url));
+
+    $apiUrl = "https://mapi.cegeplabs.qc.ca/web/heroes/$lastPart";
+    $response = json_decode(file_get_contents($apiUrl), true);
+    $heroUrlName = $response['pageProps']['pageProps']['gameData']['npcShortName'];
+    $primaryAbility = explode('.', $response['pageProps']['pageProps']['gameData']['primary_attr'])[1];
+    $attackType = explode('DOTA_Chat_', $response['pageProps']['pageProps']['gameData']['attack_type'])[1];
+    $render = $response['pageProps']['pageProps']['pathname'];
+    echo "<script>fetch('$apiUrl').then(response => response.json()).then(data => console.log(data))</script>";
+    ?>
 
 </head>
 
@@ -46,7 +51,7 @@
         - dota.heroes.npc_dota_hero_antimage.npedesc1
         - dota.heroes.npc_dota_hero_antimage.hype
 
-        Vous pouvez récupérer les autres données à partir du fichier heroes.json (ou vous pouvez les lire à partir du JSON retourné par l'API).
+        Vous pouvez récupérer les autres données à partir du fichier heroes.json ou vous pouvez les lire à partir du JSON retourné par l'API).
     -->
 
     <div>
@@ -56,41 +61,44 @@
             <div class="row">
                 <div class="col-6 gy-5">
                     <div class="mb-5">
-                        
-                        <a href="index.php"><i class="fa-solid fa-arrow-left"></i></a>
+
+                        <a href="../index.php"><i class="fa-solid fa-arrow-left"></i></a>
                     </div>
                     <div class="hero-type | mb-2">
-                        <img src="./public/images/agi-icon.png" width="32" height="32" alt="Agility">
-                        <span>Agility</span>
+                        <?php
+                        echo "<img src='/public/images/" . substr($primaryAbility, 0, 3) . "-icon.png' width='32' height='32' alt='$primaryAbility'>";
+                        echo "<span> $primaryAbility</span>"
+                        ?>
+
                     </div>
                     <div class="mb-3">
-                        <h1>Anti-Mage</h1>
-                        <span class="subheading">Slashes his foes with mana-draining attacks</span>
+                        <h1><? echo $lastPart ?></h1>
+                        <span class="subheading"><?php echo $response['pageProps']['messages']["dota.heroes.npc_dota_hero_$heroUrlName.npedesc1"]; ?></span>
                     </div>
                     <div>
                         <p>
-                            Should Anti-Mage have the opportunity to gather his full strength, few can stop his
-                            assaults. Draining mana from enemies with every strike or teleporting short distances to
-                            escape an ambush, cornering him is a challenge for any foe.
+                            <?php echo $response['pageProps']['messages']["dota.heroes.npc_dota_hero_$heroUrlName.hype"]; ?>
                         </p>
                     </div>
                     <div>
                         <div class="secondary">Attack Type</div>
-                        <img src="./public/images/melee.svg" width="24" height="24">
-                        <span>Melee</span>
+                        <div class="d-flex justify-evenly">
+                            <?php
+                            echo "<img src='/public/images/" . strtolower($attackType) . ".svg' width='32' height='32' alt='$attackType'>";
+                            echo "<span class = 'ps-2'>$attackType </span>"
+                            ?>
+                        </div>
                     </div>
                 </div>
                 <div class="col-6">
-                    <video class="hero-render"
-                        poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/antimage.png"
-                        autoplay="" preload="auto" loop="" playsinline="">
-                        <source type="video/mp4; codecs=hvc1"
-                            src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/antimage.mov">
-                        <source type="video/webm"
-                            src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/antimage.webm">
-                        <img
-                            src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/antimage.png">
-                    </video>
+                    <?php
+
+                    echo '<video class="hero-render" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png" autoplay="" preload="auto" loop="" playsinline="">';
+                    echo '<source type="video/mp4; codecs=hvc1" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.mov">';
+                    echo '<source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.webm">';
+                    echo '<img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png">';
+                    echo '</video>';
+                    ?>
                 </div>
             </div>
         </div>
@@ -100,21 +108,21 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-3">
-                    <img src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png">
+                    <? echo "<img src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/{$heroUrlName}.png'>" ?>
                 </div>
                 <div class="col-2 d-flex flex-column align-items-start gap-2 border-end">
                     <div class="d-flex align-items-center gap-2">
-                        <img src="./public/images/str-icon.png" width="38" height="38" alt="Strength">
+                        <img src="/public/images/str-icon.png" width="38" height="38" alt="Strength">
                         <span class="stat">19</span>
                         <span class="stat-increase">+1.6</span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
-                        <img src="./public/images/agi-icon.png" width="38" height="38" alt="Agility">
+                        <img src="/public/images/agi-icon.png" width="38" height="38" alt="Agility">
                         <span class="stat">24</span>
                         <span class="stat-increase">+2.8</span>
                     </div>
                     <div class="d-flex align-items-center gap-2">
-                        <img src="./public/images/int-icon.png" width="38" height="38" alt="Intelligence">
+                        <img src="/public/images/int-icon.png" width="38" height="38" alt="Intelligence">
                         <span class="stat">12</span>
                         <span class="stat-increase">+1.8</span>
                     </div>

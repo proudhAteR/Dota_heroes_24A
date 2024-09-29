@@ -11,6 +11,9 @@
     <!-- TODO: Remove CDN link and include Bootstrap files locally -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="./public/stylesheets/styles.css">
 </head>
@@ -65,6 +68,8 @@
                         );
                     };
                 }
+
+
                 ?>
             </div>
             <div class="d-flex attributes align-items-center ">
@@ -77,7 +82,7 @@
                 {
                     for ($i = 0; $i < $maxComplexity; $i++) {
                         echo (
-                            "<div><img role='button' tabindex='0' aria-pressed='false' class='img-fluid complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
+                            "<div><img role='button' tabindex='1' aria-pressed='false' class='img-fluid complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
                         );
                     };
                 }
@@ -85,7 +90,12 @@
                 ?>
 
             </div>
-            <div><input data-bs-theme='dark' type="search" class="form-control" placeholder="Search..."></div>
+            <div data-bs-theme='dark' class="input-group w-25 ">
+                <label data-bs-theme='dark' class="input-group-text" for="search-bar-input">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </label>
+                <input id="search-bar-input" type="search" class="form-control" placeholder="Search...">
+            </div>
         </div>
 
         <div>
@@ -97,7 +107,7 @@
                 $count = 0;
                 foreach ($heroes as $hero) {
                     checkBeginRow($count);
-                    echo "<td class ='heroes-images px-2 py-2' ><a href='detail.php'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>";
+                    echo ("<td class ='heroes-images px-2 py-2' ><a href='detail.php/" . $hero->localized_name = str_replace(' ', '-', $hero->localized_name) . "'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>");
                     $count++;
                     checkEndRow($count, $heroes);
                 };
