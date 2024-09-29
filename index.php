@@ -43,7 +43,7 @@
             Une fois le fonctionnement est fait sans le JavaScript, nous pouvons intégrer la librairie HTMX pour un côté dynamique pour un rafraichissement partiel de la page.
         -->
         <div class="heroes-filter d-flex align-items-center justify-content-between mx-auto text-center rounded mb-4">
-            <h5>Filter Heroes</h5>
+            <h6>Filter Heroes</h6>
            
            <div class="d-flex attributes align-items-center ">
                 <div class="p-2 pe-3 flex-grow-1">Attributes</div>
@@ -57,7 +57,7 @@
                             echo(
                                 "   
                                 <div>
-                                    <img class='img-fluid' src='public/images/{$attributes[$i]}'>
+                                    <img role='button' tabindex='0' aria-pressed='false'class='img-fluid' src='public/images/{$attributes[$i]}'>
                                 </div>"
                             );
                         };
@@ -72,7 +72,7 @@
                     function displayComplexityDiamonds($maxComplexity){
                         for($i = 0; $i < $maxComplexity; $i++){
                             echo(
-                                "<div><img class='img-fluid' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
+                                "<div><img role='button' tabindex='0' aria-pressed='false' class='img-fluid' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
                             );
                         };
                     }
@@ -84,7 +84,7 @@
         </div>
 
         <div>
-            <table class="heroes-table m-auto mb-3" >
+            <table class="heroes-table m-auto mb-4" >
                 <?php
                     $datas = file_get_contents('./data/heroes.json');
                     $heroes = json_decode($datas);
