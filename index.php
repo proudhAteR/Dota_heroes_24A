@@ -42,12 +42,42 @@
             ATTENTION: Toute la logique des filtres doit fonctionner sans aucun JavaScript! Tout doit être fait côté serveur en PHP.
             Une fois le fonctionnement est fait sans le JavaScript, nous pouvons intégrer la librairie HTMX pour un côté dynamique pour un rafraichissement partiel de la page.
         -->
-        <div>
-            FILTERS
+        <div class="heroes-filter d-flex align-items-center justify-content-between mx-auto text-center rounded mb-4">
+            <h5>Filter Heroes</h5>
+           
+           <div class="d-flex attributes align-items-center ">
+                <div class="p-2 pe-3 flex-grow-1">Attributes</div>
+
+                <?php
+                    $attributes = array("filter-str-active.png", "filter-agi-active.png", "filter-int-active.png", "filter-uni-active.png" );
+                    for($i = 0; $i < count($attributes); $i++){
+                        echo(
+                            "   
+                            <div>
+                                <img class='img-fluid' src='public/images/{$attributes[$i]}'>
+                            </div>"
+                        );
+                    };
+                ?>
+            </div>
+            <div class="d-flex attributes align-items-center ">
+                <div class="p-2 pe-3 flex-grow-1">Complexity</div>
+                <?php 
+
+                    for($i = 0; $i < 3; $i++){
+                        echo(
+                            "<div><img class='img-fluid' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
+                        );
+                    };
+                
+                ?>
+               
+            </div>
+           <div><input data-bs-theme ='dark' type="search" class="form-control" placeholder="Search..."></div>
         </div>
 
         <div>
-            <table class="heroes-table m-auto" >
+            <table class="heroes-table m-auto mb-3" >
                 <?php
                     $datas = file_get_contents('./data/heroes.json');
                     $heroes = json_decode($datas);
