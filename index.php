@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
 
     <link rel="stylesheet" href="./public/stylesheets/styles.css">
 </head>
+
 <body class="hero-background">
     <div class="container">
         <div class="text-center py-5">
@@ -44,74 +46,80 @@
         -->
         <div class="heroes-filter d-flex align-items-center justify-content-between mx-auto text-center rounded mb-4">
             <h6>Filter Heroes</h6>
-           
-           <div class="d-flex attributes align-items-center ">
+
+            <div class="d-flex attributes align-items-center ">
                 <div class="p-2 pe-3 flex-grow-1">Attributes</div>
 
                 <?php
-                    $attributes = array("filter-str-active.png", "filter-agi-active.png", "filter-int-active.png", "filter-uni-active.png" );
-                    displayAttributes($attributes);
+                $attributes = array("filter-str-active.png", "filter-agi-active.png", "filter-int-active.png", "filter-uni-active.png");
+                displayAttributes($attributes);
 
-                    function displayAttributes($attributes){
-                        for($i = 0; $i < count($attributes); $i++){
-                            echo(
-                                "   
+                function displayAttributes($attributes)
+                {
+                    for ($i = 0; $i < count($attributes); $i++) {
+                        echo (
+                            "   
                                 <div>
-                                    <img role='button' tabindex='0' aria-pressed='false'class='img-fluid' src='public/images/{$attributes[$i]}'>
+                                    <img role='button' tabindex='0' aria-pressed='false'class='img-fluid attributes' src='public/images/{$attributes[$i]}'>
                                 </div>"
-                            );
-                        };
-                    }
+                        );
+                    };
+                }
                 ?>
             </div>
             <div class="d-flex attributes align-items-center ">
                 <div class="p-2 pe-3 flex-grow-1">Complexity</div>
-                <?php 
-                    $maxComplexity = 3;
-                    displayComplexityDiamonds($maxComplexity);
-                    function displayComplexityDiamonds($maxComplexity){
-                        for($i = 0; $i < $maxComplexity; $i++){
-                            echo(
-                                "<div><img role='button' tabindex='0' aria-pressed='false' class='img-fluid' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
-                            );
-                        };
-                    }
-                
-                ?>
-               
-            </div>
-           <div><input data-bs-theme ='dark' type="search" class="form-control" placeholder="Search..."></div>
-        </div>
-
-        <div>
-            <table class="heroes-table m-auto mb-4" >
                 <?php
-                    $datas = file_get_contents('./data/heroes.json');
-                    $heroes = json_decode($datas);
-
-                    $count = 0;
-                    foreach($heroes as $hero){
-                        checkBeginRow($count);
-                        echo "<td class ='heroes-images px-2 py-2' ><a href='detail.php'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>";
-                        $count++;
-                        checkEndRow($count, $heroes);
+                $maxComplexity = 3;
+                displayComplexityDiamonds($maxComplexity);
+                //TODO : Change the css for the complexity so it does not affect the attributes and make it cumulative 
+                function displayComplexityDiamonds($maxComplexity)
+                {
+                    for ($i = 0; $i < $maxComplexity; $i++) {
+                        echo (
+                            "<div><img role='button' tabindex='0' aria-pressed='false' class='img-fluid complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
+                        );
                     };
-                    function checkBeginRow($count){
-                        if ($count % 5 == 0) {
-                            echo "<tr>";
-                        }
-                    }
-                    function checkEndRow($count, $heroes){
-                        if ($count % 5 == 0 || $count == count(get_object_vars($heroes))) {
-                            echo "</tr>";
-                        }
-                    }
+                }
+
                 ?>
-            </table>            
+
+            </div>
+            <div><input data-bs-theme='dark' type="search" class="form-control" placeholder="Search..."></div>
+        </div>
+
+        <div>
+            <table class="heroes-table m-auto mb-4">
+                <?php
+                $datas = file_get_contents('./data/heroes.json');
+                $heroes = json_decode($datas);
+
+                $count = 0;
+                foreach ($heroes as $hero) {
+                    checkBeginRow($count);
+                    echo "<td class ='heroes-images px-2 py-2' ><a href='detail.php'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>";
+                    $count++;
+                    checkEndRow($count, $heroes);
+                };
+                function checkBeginRow($count)
+                {
+                    if ($count % 5 == 0) {
+                        echo "<tr>";
+                    }
+                }
+                function checkEndRow($count, $heroes)
+                {
+                    if ($count % 5 == 0 || $count == count(get_object_vars($heroes))) {
+                        echo "</tr>";
+                    }
+                }
+                ?>
+            </table>
         </div>
         <div>
-            
+
         </div>
     </div>
 </body>
+
 </html>

@@ -146,11 +146,19 @@ a {
   padding: 37px !important;
 }
 
-.heroes-filter img {
+.attributes img {
   filter: brightness(50%) contrast(75%) grayscale(100%);
 }
 
-.heroes-filter img:focus {
+.attributes img:focus {
+  filter: none;
+}
+
+.complexity img {
+  filter: brightness(50%) contrast(75%) grayscale(100%);
+}
+
+.complexity img:focus {
   filter: none;
 }
 .attributes img {
