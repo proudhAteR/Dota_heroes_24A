@@ -1,0 +1,158 @@
+/**
+    Style CSS très rapide pour vous donner les fonts, les images et un début de page. 
+    NOTE: Le CSS n'est pas très bien fait.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+@font-face {
+  font-family: "Radiance";
+  src: url("../fonts/radiance.woff") format("woff");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Radiance";
+  src: url("../fonts/radiance-semibold.woff") format("woff");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Reaver";
+  src: url("../fonts/Reaver-Regular.woff") format("woff");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Reaver";
+  src: url("../fonts/Reaver-SemiBold.woff") format("woff");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Reaver";
+  src: url("../fonts/Reaver-Bold.woff") format("woff");
+  font-weight: 700;
+}
+
+body {
+  font-family: Radiance, "Noto Sans", sans-serif;
+  background-color: #1d1e22;
+  color: #fff;
+  font-size: 1.375rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Reaver, serif;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+a {
+  color: inherit;
+}
+
+.hero-type {
+  align-items: center;
+  display: flex;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  gap: 0.5rem;
+  text-transform: uppercase;
+}
+.heroes-images img {
+  width: 100%;
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.7);
+}
+
+.subheading {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #a5e0f3;
+}
+
+.secondary {
+  color: #959595;
+}
+
+.hero-render {
+  width: 100%;
+  min-height: 100%;
+  max-width: 1500px;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-background {
+  width: 100%;
+  min-height: 100vh;
+  background-position-x: -20vw;
+  background-color: #000;
+  background-image: url(../images/background.jpg);
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  position: relative;
+  z-index: -2;
+}
+
+.hero-background-gradient {
+  width: 150%;
+  height: 650px;
+  background-color: #00000060;
+  position: absolute;
+  transform: skewY(-45deg) translateX(-50vw);
+  overflow: hidden;
+  z-index: -1;
+}
+
+.hero-stats {
+  background: linear-gradient(80deg, #252728 0%, #101415 100%);
+  margin-top: 5rem;
+  min-height: 300px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.stat {
+  font-size: 1.625rem;
+  font-weight: bold;
+}
+
+.stat-increase {
+  color: #999;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.role {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.role-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #4c4c4c;
+}
+
+.role-bar.has-role {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px #427ed1, 0px 0px 10px #427ed1;
+}
+html {
+  overflow: scroll;
+}
