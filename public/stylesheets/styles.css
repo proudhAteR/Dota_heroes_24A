@@ -72,7 +72,6 @@ a {
 .heroes-images img {
   width: 100%;
   box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.9);
-  border: 0.5px solid #000000;
 }
 
 .subheading {
