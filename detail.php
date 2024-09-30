@@ -1,108 +1,105 @@
 <?php
-    $url = $_SERVER['REQUEST_URI'];
-    $lastPart = strtolower(basename($url));
+$url = $_SERVER['REQUEST_URI'];
+$lastPart = strtolower(basename($url));
 
-    $apiUrl = "https://mapi.cegeplabs.qc.ca/web/heroes/$lastPart";
-    $response = json_decode(file_get_contents($apiUrl), true);
-    $heroUrlName = $response['pageProps']['pageProps']['gameData']['npcShortName'];
-    $primaryAbility = explode('.', $response['pageProps']['pageProps']['gameData']['primary_attr'])[1];
-    $attackType = explode('DOTA_Chat_', $response['pageProps']['pageProps']['gameData']['attack_type'])[1];
-    $attributes = array(
-        $response['pageProps']['pageProps']['gameData']['strength_base'],
-        $response['pageProps']['pageProps']['gameData']['intelligence_base'],
-        $response['pageProps']['pageProps']['gameData']['agility_base']
-    );
-    $attributesIcons = array(
-        '/public/images/str-icon.png' => 'Strength',
-        '/public/images/int-icon.png' => 'Intelligence',
-        '/public/images/agi-icon.png' => 'Agility'
-    );
-    $attributesGain = array(
-        $response['pageProps']['pageProps']['gameData']['strength_gain'],
-        $response['pageProps']['pageProps']['gameData']['intelligence_gain'],
-        $response['pageProps']['pageProps']['gameData']['agility_gain']
-    );
-    $render = $response['pageProps']['pageProps']['pathname'];
+$apiUrl = "https://mapi.cegeplabs.qc.ca/web/heroes/$lastPart";
+$response = json_decode(file_get_contents($apiUrl), true);
+$heroUrlName = $response['pageProps']['pageProps']['gameData']['npcShortName'];
+$primaryAbility = explode('.', $response['pageProps']['pageProps']['gameData']['primary_attr'])[1];
+$attackType = explode('DOTA_Chat_', $response['pageProps']['pageProps']['gameData']['attack_type'])[1];
+$attributes = array(
+    $response['pageProps']['pageProps']['gameData']['strength_base'],
+    $response['pageProps']['pageProps']['gameData']['intelligence_base'],
+    $response['pageProps']['pageProps']['gameData']['agility_base']
+);
+$attributesIcons = array(
+    '/public/images/str-icon.png' => 'Strength',
+    '/public/images/int-icon.png' => 'Intelligence',
+    '/public/images/agi-icon.png' => 'Agility'
+);
+$attributesGain = array(
+    $response['pageProps']['pageProps']['gameData']['strength_gain'],
+    $response['pageProps']['pageProps']['gameData']['intelligence_gain'],
+    $response['pageProps']['pageProps']['gameData']['agility_gain']
+);
+$render = $response['pageProps']['pageProps']['pathname'];
 
-    $heroRoles = $response['pageProps']['pageProps']['gameData']['roles'];
-    foreach ($heroRoles as $key => $value) {
-        $newKey = explode('DOTA_HeroRole_', $key)[1];
-        $heroRoles[$newKey] = $heroRoles[$key];
-        unset($heroRoles[$key]);
+$heroRoles = $response['pageProps']['pageProps']['gameData']['roles'];
+foreach ($heroRoles as $key => $value) {
+    $newKey = explode('DOTA_HeroRole_', $key)[1];
+    $heroRoles[$newKey] = $heroRoles[$key];
+    unset($heroRoles[$key]);
+}
+$roles = [
+
+    ['name' => 'Carry'],
+    ['name' => 'Support'],
+    ['name' => 'Nuker'],
+    ['name' => 'Disabler'],
+    ['name' => 'Jungler'],
+    ['name' => 'Durable'],
+    ['name' => 'Escape'],
+    ['name' => 'Pusher'],
+    ['name' => 'Initiator'],
+
+];
+
+function api_log($value)
+{
+    echo "<script>fetch('$value').then(response => response.json()).then(data => console.log(data))</script>";
+}
+function console_log($value)
+{
+    echo "<script>console.log(" . json_encode($value) . ")</script>";
+}
+function renderHero($heroUrlName)
+{
+    echo '<video class="hero-render" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png" autoplay="" preload="auto" loop="" playsinline="">';
+    echo '<source type="video/mp4; codecs=hvc1" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.mov">';
+    echo '<source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.webm">';
+    echo '<img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png">';
+    echo '</video>';
+}
+function displayAttributes($attributes, $attributesIcons, $attributesGain)
+{
+    $count = 0;
+    foreach ($attributes as $key => $attribute) {
+        $icon = array_keys($attributesIcons)[$key];
+        $alt = $attributesIcons[$icon];
+        echo '<div class="d-flex align-items-center gap-2">';
+        echo '<img src="' . $icon . '" width="38" height="38" alt="' . $alt . '">';
+        echo '<span class="stat">' . $attribute . '</span>';
+        echo '<span class="stat-increase">+' . $attributesGain[$count] . '</span>';
+        echo '</div>';
+        $count++;
     }
-    $roles = [
-        ['name' => 'Carry', 'width' => '100%'],
-        ['name' => 'Support', 'width' => '0%'],
-        ['name' => 'Nuker', 'width' => '50%'],
-        ['name' => 'Disabler', 'width' => '0%'],
-        ['name' => 'Jungler', 'width' => '0%'],
-        ['name' => 'Durable', 'width' => '0%'],
-        ['name' => 'Escape', 'width' => '75%'],
-        ['name' => 'Pusher', 'width' => '0%'],
-        ['name' => 'Initiator', 'width' => '0%'],
-    ];
+}
+function displayRoles($roles, $heroRoles)
+{
 
-    api_log($apiUrl);
-    console_log($heroRoles);
-
-
-    function api_log($value)
-    {
-        echo "<script>fetch('$value').then(response => response.json()).then(data => console.log(data))</script>";
-    }
-    function console_log($value)
-    {
-        echo "<script>console.log(" . json_encode($value) . ")</script>";
-    }
-    function renderHero($heroUrlName)
-    {
-        echo '<video class="hero-render" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png" autoplay="" preload="auto" loop="" playsinline="">';
-        echo '<source type="video/mp4; codecs=hvc1" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.mov">';
-        echo '<source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.webm">';
-        echo '<img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png">';
-        echo '</video>';
-    }
-    function displayAttributes($attributes, $attributesIcons, $attributesGain)
-    {
-        $count = 0;
-        foreach ($attributes as $key => $attribute) {
-            $icon = array_keys($attributesIcons)[$key];
-            $alt = $attributesIcons[$icon];
-            echo '<div class="d-flex align-items-center gap-2">';
-            echo '<img src="' . $icon . '" width="38" height="38" alt="' . $alt . '">';
-            echo '<span class="stat">' . $attribute . '</span>';
-            echo '<span class="stat-increase">+' . $attributesGain[$count] . '</span>';
-            echo '</div>';
-            $count++;
+    for ($i = 0; $i < count($roles); $i++) {
+        if ($i % 3 == 0) {
+            echo '<div class="row mb-2">';
         }
-    }
-    function displayRoles($roles, $heroRoles)
-    {
-        echo '<div class="col-md-7 col-sm-12 col-xs-12 ps-5">';
-        for ($i = 0; $i < count($roles); $i++) {
-            if ($i % 3 == 0) {
-                echo '<div class="row mb-2">';
-            }
-            echo '<div class="col-md-4 col-sm-4 col-xs-6">';
-            echo '<span class="role">' . $roles[$i]['name'] . '</span>';
-            $width = '0';
-            if (array_key_exists($roles[$i]['name'], $heroRoles)) {
-                $width = floor(($heroRoles[$roles[$i]['name']] / 3) * 100);
-            }
-            console_log($width);
-            if ($width != 0) {
-                echo ("<div class='role-bar has-role' style='width: {$width}%;'></div>");
-            } else {
-                echo ("<div class='role-bar'></div>");
-            }
-            echo '</div>';
-            if ($i % 3 == 2 || $i == count($roles) - 1) {
-                echo '</div>';
-            }
+        echo '<div class="col-md-4 col-sm-4 col-xs-6">';
+        echo '<span class="role">' . $roles[$i]['name'] . '</span>';
+        $width = '0';
+        $roleName = $roles[$i]['name'];
+        if (array_key_exists($roleName , $heroRoles)) {
+            $width = floor(($heroRoles[$roles[$i]['name']] / 3) * 100);
+        }
+        if ($width != 0) {
+            echo ("<div class='role-bar has-role' style='width: {$width}%;'></div>");
+        } else {
+            echo ("<div class='role-bar'></div>");
         }
         echo '</div>';
+        if ($i % 3 == 2 || $i == count($roles) - 1) {
+            echo '</div>';
+        }
     }
-    ?>
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -128,20 +125,6 @@
 </head>
 
 <body class="hero-background">
-    <!-- 
-        Pour cette page, il faut récupérer un paramètre de l'URL de manière à identifier le héro de manière unique (e.g. le "name" dans le JSON)
-        À parti de cet identifiant, nous allons pouvoir aller chercher les données du héro pour pouvoir les afficher.
-
-        Nous utiliserons ce site pour obtenir les données, car il contient les descriptions pour les héros.
-
-        https://dotacoach.gg/_next/data/hQex-UdUEDib_3-cqnDNe/en/heroes/anti-mage.json
-
-        - dota.heroes.npc_dota_hero_antimage.npedesc1
-        - dota.heroes.npc_dota_hero_antimage.hype
-
-        Vous pouvez récupérer les autres données à partir du fichier heroes.json ou vous pouvez les lire à partir du JSON retourné par l'API).
-    -->
-
     <div>
         <div class="hero-background-gradient"></div>
 
@@ -198,10 +181,13 @@
                     displayAttributes($attributes, $attributesIcons, $attributesGain);
                     ?>
                 </div>
-                <!-- TODO: The role bar got to be made -->
-                <?php
-                displayRoles($roles, $heroRoles);
-                ?>
+        
+                <div class="col-md-7 col-sm-12 col-xs-12 ps-5">
+                    <?php
+                    displayRoles($roles, $heroRoles);
+                    ?>
+                </div>
+
             </div>
         </div>
     </div>
