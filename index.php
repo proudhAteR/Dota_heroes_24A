@@ -1,3 +1,53 @@
+<?php
+$maxComplexity = 3;
+$datas = file_get_contents('./data/heroes.json');
+$heroes = json_decode($datas);
+$count = 0;
+$attributes = array("filter-str-active.png", "filter-agi-active.png", "filter-int-active.png", "filter-uni-active.png");
+function createHeroesTable($heroes){
+    $count = 0;
+    foreach ($heroes as $hero) {
+        checkBeginRow($count);
+        echo ("<td class ='heroes-images px-2 py-2' ><a href='detail.php/" . $hero->localized_name = str_replace(array(' ', "'"), array('-', ''), $hero->localized_name) . "'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>");
+        $count++;
+        checkEndRow($count, $heroes);
+    };
+}
+function displayAttributes($attributes)
+{
+    for ($i = 0; $i < count($attributes); $i++) {
+        echo (
+            "   
+                <div>
+                    <img role='button' tabindex='0' aria-pressed='false'class='img-fluid attributes' src='public/images/{$attributes[$i]}'>
+                </div>"
+        );
+    };
+}
+function displayComplexityDiamonds($maxComplexity)
+{
+    for ($i = 0; $i < $maxComplexity; $i++) {
+        echo (
+            "<div><img role='button' tabindex='1' aria-pressed='false' class='img-fluid complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
+        );
+    };
+}
+
+function checkBeginRow($count)
+{
+    if ($count % 5 == 0) {
+        echo "<tr>";
+    }
+}
+function checkEndRow($count, $heroes)
+{
+    if ($count % 5 == 0 || $count == count(get_object_vars($heroes))) {
+        echo "</tr>";
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,41 +102,15 @@
 
             <div class="d-flex attributes align-items-center ">
                 <div class="p-2 pe-3 flex-grow-1">Attributes</div>
-
                 <?php
-                $attributes = array("filter-str-active.png", "filter-agi-active.png", "filter-int-active.png", "filter-uni-active.png");
                 displayAttributes($attributes);
-
-                function displayAttributes($attributes)
-                {
-                    for ($i = 0; $i < count($attributes); $i++) {
-                        echo (
-                            "   
-                                <div>
-                                    <img role='button' tabindex='0' aria-pressed='false'class='img-fluid attributes' src='public/images/{$attributes[$i]}'>
-                                </div>"
-                        );
-                    };
-                }
-
-
                 ?>
             </div>
             <div class="d-flex attributes align-items-center ">
                 <div class="p-2 pe-3 flex-grow-1">Complexity</div>
                 <?php
-                $maxComplexity = 3;
-                displayComplexityDiamonds($maxComplexity);
                 //TODO : Change the css for the complexity so it does not affect the attributes and make it cumulative 
-                function displayComplexityDiamonds($maxComplexity)
-                {
-                    for ($i = 0; $i < $maxComplexity; $i++) {
-                        echo (
-                            "<div><img role='button' tabindex='1' aria-pressed='false' class='img-fluid complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
-                        );
-                    };
-                }
-
+                displayComplexityDiamonds($maxComplexity);
                 ?>
 
             </div>
@@ -97,32 +121,10 @@
                 <input id="search-bar-input" type="search" class="form-control" placeholder="Search...">
             </div>
         </div>
-
         <div>
             <table class="heroes-table m-auto mb-4">
                 <?php
-                $datas = file_get_contents('./data/heroes.json');
-                $heroes = json_decode($datas);
-
-                $count = 0;
-                foreach ($heroes as $hero) {
-                    checkBeginRow($count);
-                    echo ("<td class ='heroes-images px-2 py-2' ><a href='detail.php/" . $hero->localized_name = str_replace(array(' ', "'"), array('-', ''), $hero->localized_name) . "'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>");
-                    $count++;
-                    checkEndRow($count, $heroes);
-                };
-                function checkBeginRow($count)
-                {
-                    if ($count % 5 == 0) {
-                        echo "<tr>";
-                    }
-                }
-                function checkEndRow($count, $heroes)
-                {
-                    if ($count % 5 == 0 || $count == count(get_object_vars($heroes))) {
-                        echo "</tr>";
-                    }
-                }
+                createHeroesTable($heroes);
                 ?>
             </table>
         </div>
@@ -131,5 +133,4 @@
         </div>
     </div>
 </body>
-
 </html>

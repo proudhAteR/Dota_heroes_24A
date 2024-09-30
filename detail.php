@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="/public/images/favicon.ico" type="image/x-icon">
-    <?php
+<?php
     $url = $_SERVER['REQUEST_URI'];
     $lastPart = strtolower(basename($url));
 
@@ -31,8 +23,37 @@
         $response['pageProps']['pageProps']['gameData']['agility_gain']
     );
     $render = $response['pageProps']['pageProps']['pathname'];
-    echo "<script>fetch('$apiUrl').then(response => response.json()).then(data => console.log(data))</script>";
 
+    $heroRoles = $response['pageProps']['pageProps']['gameData']['roles'];
+    foreach ($heroRoles as $key => $value) {
+        $newKey = explode('DOTA_HeroRole_', $key)[1];
+        $heroRoles[$newKey] = $heroRoles[$key];
+        unset($heroRoles[$key]);
+    }
+    $roles = [
+        ['name' => 'Carry', 'width' => '100%'],
+        ['name' => 'Support', 'width' => '0%'],
+        ['name' => 'Nuker', 'width' => '50%'],
+        ['name' => 'Disabler', 'width' => '0%'],
+        ['name' => 'Jungler', 'width' => '0%'],
+        ['name' => 'Durable', 'width' => '0%'],
+        ['name' => 'Escape', 'width' => '75%'],
+        ['name' => 'Pusher', 'width' => '0%'],
+        ['name' => 'Initiator', 'width' => '0%'],
+    ];
+
+    api_log($apiUrl);
+    console_log($heroRoles);
+
+
+    function api_log($value)
+    {
+        echo "<script>fetch('$value').then(response => response.json()).then(data => console.log(data))</script>";
+    }
+    function console_log($value)
+    {
+        echo "<script>console.log(" . json_encode($value) . ")</script>";
+    }
     function renderHero($heroUrlName)
     {
         echo '<video class="hero-render" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png" autoplay="" preload="auto" loop="" playsinline="">';
@@ -55,10 +76,43 @@
             $count++;
         }
     }
+    function displayRoles($roles, $heroRoles)
+    {
+        echo '<div class="col-md-7 col-sm-12 col-xs-12 ps-5">';
+        for ($i = 0; $i < count($roles); $i++) {
+            if ($i % 3 == 0) {
+                echo '<div class="row mb-2">';
+            }
+            echo '<div class="col-md-4 col-sm-4 col-xs-6">';
+            echo '<span class="role">' . $roles[$i]['name'] . '</span>';
+            $width = '0';
+            if (array_key_exists($roles[$i]['name'], $heroRoles)) {
+                $width = floor(($heroRoles[$roles[$i]['name']] / 3) * 100);
+            }
+            console_log($width);
+            if ($width != 0) {
+                echo ("<div class='role-bar has-role' style='width: {$width}%;'></div>");
+            } else {
+                echo ("<div class='role-bar'></div>");
+            }
+            echo '</div>';
+            if ($i % 3 == 2 || $i == count($roles) - 1) {
+                echo '</div>';
+            }
+        }
+        echo '</div>';
+    }
     ?>
+<!DOCTYPE html>
+<html lang="en">
 
-    <!-- NOTE: Title is different for this page -->
-    <title>Dota 2 - <? echo$lastPart ?></title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="/public/images/favicon.ico" type="image/x-icon">
+
+    <title>Dota 2 - <? echo basename($url) ?></title>
 
     <!-- TODO: Remove CDN link and include Bootstrap files locally -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -69,7 +123,7 @@
 
     <link rel="stylesheet" href="/public/stylesheets/styles.css?v=<?php echo time(); ?>">
 
-    
+
 
 </head>
 
@@ -145,50 +199,9 @@
                     ?>
                 </div>
                 <!-- TODO: The role bar got to be made -->
-                <div class="col-md-7 col-sm-12 col-xs-12 ps-5">
-                    <div class="row mb-2">
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <span class="role">Carry</span>
-                            <div class="role-bar has-role"></div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <span class="role">Support</span>
-                            <div class="role-bar"></div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <span class="role">Nuker</span>
-                            <div class="role-bar has-role"></div>
-                        </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <span class="role">Disabler</span>
-                            <div class="role-bar"></div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <span class="role">Jungler</span>
-                            <div class="role-bar"></div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <span class="role">Durable</span>
-                            <div class="role-bar"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <span class="role">Escape</span>
-                            <div class="role-bar has-role"></div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <span class="role">Pusher</span>
-                            <div class="role-bar"></div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <span class="role">Initiator</span>
-                            <div class="role-bar"></div>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                displayRoles($roles, $heroRoles);
+                ?>
             </div>
         </div>
     </div>
