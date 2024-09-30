@@ -91,9 +91,9 @@
 
             </div>
             <div data-bs-theme='dark' class="input-group w-25 ">
-                <label data-bs-theme='dark' class="input-group-text" for="search-bar-input">
+                <button class="btn" type="button" id="search-bar-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                </label>
+                </button>
                 <input id="search-bar-input" type="search" class="form-control" placeholder="Search...">
             </div>
         </div>
@@ -107,7 +107,7 @@
                 $count = 0;
                 foreach ($heroes as $hero) {
                     checkBeginRow($count);
-                    echo ("<td class ='heroes-images px-2 py-2' ><a href='detail.php/" . $hero->localized_name = str_replace(' ', '-', $hero->localized_name) . "'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>");
+                    echo ("<td class ='heroes-images px-2 py-2' ><a href='detail.php/" . $hero->localized_name = str_replace(array(' ', "'"), array('-', ''), $hero->localized_name) . "'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>");
                     $count++;
                     checkEndRow($count, $heroes);
                 };

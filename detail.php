@@ -19,11 +19,6 @@
 
     <link rel="stylesheet" href="/public/stylesheets/styles.css?v=<?php echo time(); ?>">
 
-
-    <!-- 
-        TODO: Ce code JavaScript doit être enlevé. Le code est pour vous montrer l'exemple du fetch et des propriétés à utiliser pour accéder aux descriptions 
-              Vous devez faire le call à l'API en PHP directement et non en JavaScript (e.g. le code ci-dessous doit être migré dans l'équivalent en PHP).
-     -->
     <?php
     $url = $_SERVER['REQUEST_URI'];
     $lastPart = strtolower(basename($url));
@@ -33,8 +28,46 @@
     $heroUrlName = $response['pageProps']['pageProps']['gameData']['npcShortName'];
     $primaryAbility = explode('.', $response['pageProps']['pageProps']['gameData']['primary_attr'])[1];
     $attackType = explode('DOTA_Chat_', $response['pageProps']['pageProps']['gameData']['attack_type'])[1];
+    $attributes = array(
+        $response['pageProps']['pageProps']['gameData']['strength_base'],
+        $response['pageProps']['pageProps']['gameData']['intelligence_base'],
+        $response['pageProps']['pageProps']['gameData']['agility_base']
+    );
+    $attributesIcons = array(
+        '/public/images/str-icon.png' => 'Strength',
+        '/public/images/int-icon.png' => 'Intelligence',
+        '/public/images/agi-icon.png' => 'Agility'
+    );
+    $attributesGain = array(
+        $response['pageProps']['pageProps']['gameData']['strength_gain'],
+        $response['pageProps']['pageProps']['gameData']['intelligence_gain'],
+        $response['pageProps']['pageProps']['gameData']['agility_gain']
+    );
     $render = $response['pageProps']['pageProps']['pathname'];
     echo "<script>fetch('$apiUrl').then(response => response.json()).then(data => console.log(data))</script>";
+
+    function renderHero($heroUrlName)
+    {
+        echo '<video class="hero-render" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png" autoplay="" preload="auto" loop="" playsinline="">';
+        echo '<source type="video/mp4; codecs=hvc1" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.mov">';
+        echo '<source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.webm">';
+        echo '<img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png">';
+        echo '</video>';
+    }
+    function displayAttributes($attributes, $attributesIcons, $attributesGain)
+    {
+        $count = 0;
+        foreach ($attributes as $key => $attribute) {
+            $icon = array_keys($attributesIcons)[$key];
+            $alt = $attributesIcons[$icon];
+            echo '<div class="d-flex align-items-center gap-2">';
+            echo '<img src="' . $icon . '" width="38" height="38" alt="' . $alt . '">';
+            echo '<span class="stat">' . $attribute . '</span>';
+            echo '<span class="stat-increase">+' . $attributesGain[$count] . '</span>';
+            echo '</div>';
+            $count++;
+        }
+    }
     ?>
 
 </head>
@@ -92,12 +125,7 @@
                 </div>
                 <div class="col-6">
                     <?php
-
-                    echo '<video class="hero-render" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png" autoplay="" preload="auto" loop="" playsinline="">';
-                    echo '<source type="video/mp4; codecs=hvc1" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.mov">';
-                    echo '<source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.webm">';
-                    echo '<img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png">';
-                    echo '</video>';
+                    renderHero($heroUrlName);
                     ?>
                 </div>
             </div>
@@ -107,65 +135,54 @@
     <div class="hero-stats">
         <div class="container py-5">
             <div class="row">
-                <div class="col-3">
-                    <? echo "<img src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/{$heroUrlName}.png'>" ?>
+                <div class="col-md-3 col-sm-6 col-xs-12 ">
+                    <? echo "<img class='w100' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/{$heroUrlName}.png'>" ?>
                 </div>
-                <div class="col-2 d-flex flex-column align-items-start gap-2 border-end">
-                    <div class="d-flex align-items-center gap-2">
-                        <img src="/public/images/str-icon.png" width="38" height="38" alt="Strength">
-                        <span class="stat">19</span>
-                        <span class="stat-increase">+1.6</span>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <img src="/public/images/agi-icon.png" width="38" height="38" alt="Agility">
-                        <span class="stat">24</span>
-                        <span class="stat-increase">+2.8</span>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <img src="/public/images/int-icon.png" width="38" height="38" alt="Intelligence">
-                        <span class="stat">12</span>
-                        <span class="stat-increase">+1.8</span>
-                    </div>
+                <div class="col-md-2 col-sm-6 col-xs-12 d-flex flex-column align-items-start gap-2 border-end">
+                    <?php
+                    displayAttributes($attributes, $attributesIcons, $attributesGain);
+                    ?>
                 </div>
-                <div class="col-4 ps-5">
+                <!-- TODO: The role bar got to be made -->
+                <div class="col-md-7 col-sm-12 col-xs-12 ps-5">
                     <div class="row mb-2">
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <span class="role">Carry</span>
                             <div class="role-bar has-role"></div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <span class="role">Support</span>
                             <div class="role-bar"></div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <span class="role">Nuker</span>
                             <div class="role-bar has-role"></div>
                         </div>
                     </div>
                     <div class="row mb-2">
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <span class="role">Disabler</span>
                             <div class="role-bar"></div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <span class="role">Jungler</span>
                             <div class="role-bar"></div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <span class="role">Durable</span>
                             <div class="role-bar"></div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <span class="role">Escape</span>
                             <div class="role-bar has-role"></div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <span class="role">Pusher</span>
                             <div class="role-bar"></div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-sm-4 col-xs-6">
                             <span class="role">Initiator</span>
                             <div class="role-bar"></div>
                         </div>
