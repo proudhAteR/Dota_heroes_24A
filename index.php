@@ -4,13 +4,18 @@ $datas = file_get_contents('./data/heroes.json');
 $heroes = json_decode($datas);
 $count = 0;
 $attributes = array("filter-str-active.png", "filter-agi-active.png", "filter-int-active.png", "filter-uni-active.png");
-function createHeroesTable($heroes){
+function createHeroesTable($heroes)
+{
+    $inputValue = strtolower(getFormValue());
     $count = 0;
     foreach ($heroes as $hero) {
-        checkBeginRow($count);
-        echo ("<td class ='heroes-images px-2 py-2' ><a href='detail.php/" . $hero->localized_name = str_replace(array(' ', "'"), array('-', ''), $hero->localized_name) . "'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>");
-        $count++;
-        checkEndRow($count, $heroes);
+        $heroName = strtolower(str_replace(array(' ', "'"), array('-', ''), $hero->localized_name));
+        if (strpos($heroName, $inputValue) !== false || $inputValue === '') {
+            checkBeginRow($count);
+            echo ("<td class ='heroes-images px-2 py-2' ><a href='detail.php/{$heroName}'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>");
+            $count++;
+            checkEndRow($count, $heroes);
+        }
     };
 }
 function displayAttributes($attributes)
@@ -24,6 +29,7 @@ function displayAttributes($attributes)
         );
     };
 }
+
 function displayComplexityDiamonds($maxComplexity)
 {
     for ($i = 0; $i < $maxComplexity; $i++) {
@@ -45,6 +51,15 @@ function checkEndRow($count, $heroes)
         echo "</tr>";
     }
 }
+function console_log($value)
+{
+    echo "<script>console.log(" . $value . ")</script>";
+}
+function getFormValue()
+{
+    return isset($_GET['search-bar-input']) ? $_GET['search-bar-input'] : '';
+}
+
 ?>
 
 
@@ -114,15 +129,15 @@ function checkEndRow($count, $heroes)
                 ?>
 
             </div>
-            <div data-bs-theme='dark' class="input-group w-25 ">
-                <button class="btn" type="button" id="search-bar-button">
+            <form method="get" data-bs-theme='dark' class="input-group w-25 ">
+                <button class="btn" type="submit" id="search-bar-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <input id="search-bar-input" type="search" class="form-control" placeholder="Search...">
-            </div>
+                <input id="search-bar-input" name="search-bar-input" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+            </form>
         </div>
         <div>
-            <table class="heroes-table m-auto mb-4">
+            <table class="heroes-table  mb-4">
                 <?php
                 createHeroesTable($heroes);
                 ?>
@@ -133,4 +148,5 @@ function checkEndRow($count, $heroes)
         </div>
     </div>
 </body>
+
 </html>
