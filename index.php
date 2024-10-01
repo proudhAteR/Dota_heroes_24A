@@ -29,9 +29,10 @@ function createHeroesTable($heroes)
                         <div class='image-overlay'>
                             <img src='https://cdn.akamai.steamstatic.com/{$hero->img}'>
                             <div class='overlay justify-content-start'>
-                            <div class='overlay-elements d-flex justify-content-start'>
-                            <img src='public/images/{$hero->primary_attr}-icon.png'>
-                            <h3>{$hero->localized_name}</h3></div>
+                                <div class='overlay-elements d-flex justify-content-start gap-2 align-items-center'>
+                                    <img src='public/images/{$hero->primary_attr}-icon.png'>
+                                    <span>{$hero->localized_name}</span>
+                                </div>
                             </div>
                         </div>
                     </a>
