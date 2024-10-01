@@ -77,24 +77,31 @@ function displayAttributes($attributes, $attributesIcons, $attributesGain)
 function displayRoles($roles, $heroRoles)
 {
     for ($i = 0; $i < count($roles); $i++) {
-        if ($i % 3 == 0) {
+        $width = '0';
+        $roleName = $roles[$i]['name'];
+        
+        if (isColumnDebut($i)) {
             echo '<div class="row mb-2">';
         }
         echo '<div class="col-md-4 col-sm-4 col-xs-6">';
-        echo '<span class="role">'.$roles[$i]['name'] .'</span>';
-        $width = '0';
-        $roleName = $roles[$i]['name'];
+        echo '<span class="role">'.$roleName.'</span>';
         if (array_key_exists($roleName , $heroRoles)) {
-            $width = floor(($heroRoles[$roles[$i]['name']] / 3) * 100);
+            $width = floor(($heroRoles[$roleName] / 3) * 100);
         }
         echo '<div class="role-bar-wrapper">';
         echo "<div class='role-bar" . ($width != 0 ? " has-role" : "") . "' style='width: {$width}%'></div>";
         echo '</div>';
         echo '</div>';
-        if ($i % 3 == 2 || $i == count($roles) - 1) {
+        if (isColumnEnd($i, $roles)) {
             echo '</div>';
         }
     }
+}
+function isColumnDebut($index){
+    return $index % 3 == 0 ;
+}
+function isColumnEnd($index, $array){
+    return $index % 3 == 2 || $index == count($array) - 1;
 }
 ?>
 <!DOCTYPE html>
