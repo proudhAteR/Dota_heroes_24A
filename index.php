@@ -3,7 +3,12 @@ $maxComplexity = 3;
 $datas = file_get_contents('./data/heroes.json');
 $heroes = json_decode($datas);
 $count = 0;
-$attributes = array("filter-str-active.png", "filter-agi-active.png", "filter-int-active.png", "filter-uni-active.png");
+$attributes = [
+    ['Intelligence' =>'int'],
+    ['Strength' => 'str'],
+    ['Universal' => 'uni']
+];
+$attributesIcons = array("filter-str-active.png", "filter-agi-active.png", "filter-int-active.png", "filter-uni-active.png");
 function createHeroesTable($heroes)
 {
     $inputValue = strtolower(getFormValue());
@@ -18,13 +23,13 @@ function createHeroesTable($heroes)
         }
     };
 }
-function displayAttributes($attributes)
+function displayAttributes($attributesIcons)
 {
-    for ($i = 0; $i < count($attributes); $i++) {
+    for ($i = 0; $i < count($attributesIcons); $i++) {
         echo (
             "   
                 <div>
-                    <img role='button' tabindex='0' aria-pressed='false'class='img-fluid attributes' src='public/images/{$attributes[$i]}'>
+                    <img role='button' tabindex='0' aria-pressed='false'class='img-fluid attributes' src='public/images/{$attributesIcons[$i]}'>
                 </div>"
         );
     };
@@ -110,7 +115,7 @@ function getFormValue()
                     - Si nous sélectionnons un ou des attributs, nous faisons un filtre par OU (e.g. si on choisit Force et Intelligence, nous affichons les héros sont de type Force ou Intelligence)
                     - Les deux filtres se combinent (e.g. le nom et les attributs).
             ATTENTION: Toute la logique des filtres doit fonctionner sans aucun JavaScript! Tout doit être fait côté serveur en PHP.
-            Une fois le fonctionnement est fait sans le JavaScript, nous pouvons intégrer la librairie HTMX pour un côté dynamique pour un rafraichissement partiel de la page.
+            Une fois le fonctionnement est fait sans le JavaScript, nous pouvons intégrer la librairie HTMX pour un côté dynamique pour un rafraîchissement partiel de la page.
         -->
         <div class="heroes-filter d-flex align-items-center justify-content-between mx-auto text-center rounded mb-4">
             <h6>Filter Heroes</h6>
@@ -118,7 +123,7 @@ function getFormValue()
             <div class="d-flex attributes align-items-center ">
                 <div class="p-2 pe-3 flex-grow-1">Attributes</div>
                 <?php
-                displayAttributes($attributes);
+                displayAttributes($attributesIcons);
                 ?>
             </div>
             <div class="d-flex attributes align-items-center ">

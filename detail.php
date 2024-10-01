@@ -76,23 +76,20 @@ function displayAttributes($attributes, $attributesIcons, $attributesGain)
 }
 function displayRoles($roles, $heroRoles)
 {
-
     for ($i = 0; $i < count($roles); $i++) {
         if ($i % 3 == 0) {
             echo '<div class="row mb-2">';
         }
         echo '<div class="col-md-4 col-sm-4 col-xs-6">';
-        echo '<span class="role">' . $roles[$i]['name'] . '</span>';
+        echo '<span class="role">'.$roles[$i]['name'] .'</span>';
         $width = '0';
         $roleName = $roles[$i]['name'];
         if (array_key_exists($roleName , $heroRoles)) {
             $width = floor(($heroRoles[$roles[$i]['name']] / 3) * 100);
         }
-        if ($width != 0) {
-            echo ("<div class='role-bar has-role' style='width: {$width}%;'></div>");
-        } else {
-            echo ("<div class='role-bar'></div>");
-        }
+        echo '<div class="role-bar-wrapper">';
+        echo "<div class='role-bar" . ($width != 0 ? " has-role" : "") . "' style='width: {$width}%'></div>";
+        echo '</div>';
         echo '</div>';
         if ($i % 3 == 2 || $i == count($roles) - 1) {
             echo '</div>';

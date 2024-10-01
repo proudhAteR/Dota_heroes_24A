@@ -189,6 +189,12 @@ a {
   font-weight: bold;
 }
 
+.role-bar-wrapper {
+  width: 100%;
+  height: 8px;
+  background-color: #4c4c4c; 
+}
+
 .role-bar {
   width: 100%;
   height: 8px;
