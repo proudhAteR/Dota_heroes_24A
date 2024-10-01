@@ -4,11 +4,17 @@ $datas = file_get_contents('./data/heroes.json');
 $heroes = json_decode($datas);
 $count = 0;
 $attributes = [
-    ['Intelligence' =>'int'],
-    ['Strength' => 'str'],
-    ['Universal' => 'uni']
+    'Intelligence' => 'int',
+    'Strength' => 'str',
+    'Universal' => 'uni',
+    'Agility' => 'agi'
 ];
-$attributesIcons = array("filter-str-active.png", "filter-agi-active.png", "filter-int-active.png", "filter-uni-active.png");
+$attributesIcons = [
+    'int' => "filter-{$attributes['Intelligence']}-active.png",
+    'str' => "filter-{$attributes['Strength']}-active.png",
+    'agi' => "filter-{$attributes['Agility']}-active.png",
+    'uni' => "filter-{$attributes['Universal']}-active.png",
+];
 function createHeroesTable($heroes)
 {
     $inputValue = strtolower(getFormValue());
@@ -17,7 +23,20 @@ function createHeroesTable($heroes)
         $heroName = strtolower(str_replace(array(' ', "'"), array('-', ''), $hero->localized_name));
         if (strpos($heroName, $inputValue) !== false || $inputValue === '') {
             checkBeginRow($count);
-            echo ("<td class ='heroes-images px-2 py-2' ><a href='detail.php/{$heroName}'><img src='https://cdn.akamai.steamstatic.com/{$hero->img}'></a></td>");
+            echo ("
+                <td class='heroes-images px-2 py-2'>
+                    <a href='detail.php/{$heroName}'>
+                        <div class='image-overlay'>
+                            <img src='https://cdn.akamai.steamstatic.com/{$hero->img}'>
+                            <div class='overlay justify-content-start'>
+                            <div class='overlay-elements d-flex justify-content-start'>
+                            <img src='public/images/{$hero->primary_attr}-icon.png'>
+                            <h3>{$hero->localized_name}</h3></div>
+                            </div>
+                        </div>
+                    </a>
+                </td>
+            ");
             $count++;
             checkEndRow($count, $heroes);
         }
@@ -25,13 +44,15 @@ function createHeroesTable($heroes)
 }
 function displayAttributes($attributesIcons)
 {
-    for ($i = 0; $i < count($attributesIcons); $i++) {
+    $id = 0;
+    foreach ($attributesIcons as $icon) {
         echo (
             "   
                 <div>
-                    <img role='button' tabindex='0' aria-pressed='false'class='img-fluid attributes' src='public/images/{$attributesIcons[$i]}'>
+                    <img id='attribute-$id' role='button' tabindex='-1' aria-pressed='false'class='img-fluid attributes' src='public/images/{$icon}'>
                 </div>"
         );
+        $id++;
     };
 }
 
@@ -39,7 +60,7 @@ function displayComplexityDiamonds($maxComplexity)
 {
     for ($i = 0; $i < $maxComplexity; $i++) {
         echo (
-            "<div><img role='button' tabindex='1' aria-pressed='false' class='img-fluid complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
+            "<div><img role='button' id ='complexity-$i' tabindex='$i' aria-pressed='false' class='img-fluid complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
         );
     };
 }
@@ -119,20 +140,14 @@ function getFormValue()
         -->
         <div class="heroes-filter d-flex align-items-center justify-content-between mx-auto text-center rounded mb-4">
             <h6>Filter Heroes</h6>
-
             <div class="d-flex attributes align-items-center ">
                 <div class="p-2 pe-3 flex-grow-1">Attributes</div>
-                <?php
-                displayAttributes($attributesIcons);
-                ?>
+                <?php displayAttributes($attributesIcons); ?>
             </div>
             <div class="d-flex attributes align-items-center ">
                 <div class="p-2 pe-3 flex-grow-1">Complexity</div>
-                <?php
-                //TODO : Change the css for the complexity so it does not affect the attributes and make it cumulative 
-                displayComplexityDiamonds($maxComplexity);
-                ?>
-
+                <!--TODO : Change the css for the complexity so it does not affect the attributes and make it cumulative-->
+                <?php displayComplexityDiamonds($maxComplexity); ?>
             </div>
             <form method="get" data-bs-theme='dark' class="input-group w-25 ">
                 <button class="btn" type="submit" id="search-bar-button">
@@ -143,9 +158,7 @@ function getFormValue()
         </div>
         <div>
             <table class="heroes-table  mb-4">
-                <?php
-                createHeroesTable($heroes);
-                ?>
+                <?php createHeroesTable($heroes); ?>
             </table>
         </div>
         <div>

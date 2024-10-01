@@ -146,7 +146,6 @@ a {
   padding: 37px !important;
 }
 
-/* Styles for Attributes */
 .attributes img {
   filter: brightness(50%) contrast(75%) grayscale(100%);
   transition: filter 0.3s ease;
@@ -157,7 +156,6 @@ a {
   outline: none;
 }
 
-/* Styles for Complexity */
 .complexity img {
   filter: brightness(50%) contrast(75%) grayscale(100%);
   transition: filter 0.3s ease;
@@ -172,6 +170,50 @@ a {
   max-width: 40px;
   max-height: 40px;
 }
+
+.image-overlay {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+  display: inline-block;
+}
+.image-overlay:hover .overlay {
+  opacity: 1;
+}
+
+.image-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.image-overlay:hover {
+  transform: scale(1.4);
+  z-index: 1; 
+}
+.image-overlay .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.6rem;
+  line-height: 0.3;
+  padding-top: 30.5%;
+  opacity: 0;
+  transition: opacity 0.5s;
+  overflow: hidden;
+}
+.overlay-elements img {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
 
 .stat {
   font-size: 1.625rem;
@@ -192,7 +234,7 @@ a {
 .role-bar-wrapper {
   width: 100%;
   height: 8px;
-  background-color: #4c4c4c; 
+  background-color: #4c4c4c;
 }
 
 .role-bar {

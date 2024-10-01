@@ -72,7 +72,7 @@
   "3": {
     "id": 3,
     "name": "npc_dota_hero_bane",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Disabler", "Nuker", "Durable"],
     "img": "/apps/dota2/images/dota_react/heroes/bane.png?",
@@ -282,7 +282,7 @@
   "9": {
     "id": 9,
     "name": "npc_dota_hero_mirana",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Carry", "Support", "Escape", "Nuker", "Disabler"],
     "img": "/apps/dota2/images/dota_react/heroes/mirana.png?",
@@ -527,7 +527,7 @@
   "16": {
     "id": 16,
     "name": "npc_dota_hero_sand_king",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Initiator", "Disabler", "Support", "Nuker", "Escape"],
     "img": "/apps/dota2/images/dota_react/heroes/sand_king.png?",
@@ -667,7 +667,7 @@
   "20": {
     "id": 20,
     "name": "npc_dota_hero_vengefulspirit",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Initiator", "Disabler", "Nuker", "Escape"],
     "img": "/apps/dota2/images/dota_react/heroes/vengefulspirit.png?",
@@ -702,7 +702,7 @@
   "21": {
     "id": 21,
     "name": "npc_dota_hero_windrunner",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Carry", "Support", "Disabler", "Escape", "Nuker"],
     "img": "/apps/dota2/images/dota_react/heroes/windrunner.png?",
@@ -1087,7 +1087,7 @@
   "33": {
     "id": 33,
     "name": "npc_dota_hero_enigma",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Disabler", "Initiator", "Pusher"],
     "img": "/apps/dota2/images/dota_react/heroes/enigma.png?",
@@ -1262,7 +1262,7 @@
   "38": {
     "id": 38,
     "name": "npc_dota_hero_beastmaster",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Initiator", "Disabler", "Durable", "Nuker"],
     "img": "/apps/dota2/images/dota_react/heroes/beastmaster.png?",
@@ -1332,7 +1332,7 @@
   "40": {
     "id": 40,
     "name": "npc_dota_hero_venomancer",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Nuker", "Initiator", "Pusher", "Disabler"],
     "img": "/apps/dota2/images/dota_react/heroes/venomancer.png?",
@@ -1682,7 +1682,7 @@
   "50": {
     "id": 50,
     "name": "npc_dota_hero_dazzle",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Nuker", "Disabler"],
     "img": "/apps/dota2/images/dota_react/heroes/dazzle.png?",
@@ -1717,7 +1717,7 @@
   "51": {
     "id": 51,
     "name": "npc_dota_hero_rattletrap",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Initiator", "Disabler", "Durable", "Nuker"],
     "img": "/apps/dota2/images/dota_react/heroes/rattletrap.png?",
@@ -1857,7 +1857,7 @@
   "55": {
     "id": 55,
     "name": "npc_dota_hero_dark_seer",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Initiator", "Escape", "Disabler"],
     "img": "/apps/dota2/images/dota_react/heroes/dark_seer.png?",
@@ -2067,7 +2067,7 @@
   "61": {
     "id": 61,
     "name": "npc_dota_hero_broodmother",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Carry", "Pusher", "Escape", "Nuker"],
     "img": "/apps/dota2/images/dota_react/heroes/broodmother.png?",
@@ -2207,7 +2207,7 @@
   "65": {
     "id": 65,
     "name": "npc_dota_hero_batrider",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Initiator", "Disabler", "Escape"],
     "img": "/apps/dota2/images/dota_react/heroes/batrider.png?",
@@ -2242,7 +2242,7 @@
   "66": {
     "id": 66,
     "name": "npc_dota_hero_chen",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Pusher"],
     "img": "/apps/dota2/images/dota_react/heroes/chen.png?",
@@ -2522,7 +2522,7 @@
   "74": {
     "id": 74,
     "name": "npc_dota_hero_invoker",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Carry", "Nuker", "Disabler", "Escape", "Pusher"],
     "img": "/apps/dota2/images/dota_react/heroes/invoker.png?",
@@ -2627,7 +2627,7 @@
   "77": {
     "id": 77,
     "name": "npc_dota_hero_lycan",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Carry", "Pusher", "Durable", "Escape"],
     "img": "/apps/dota2/images/dota_react/heroes/lycan.png?",
@@ -2662,7 +2662,7 @@
   "78": {
     "id": 78,
     "name": "npc_dota_hero_brewmaster",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Carry", "Initiator", "Durable", "Disabler", "Nuker"],
     "img": "/apps/dota2/images/dota_react/heroes/brewmaster.png?",
@@ -2732,7 +2732,7 @@
   "80": {
     "id": 80,
     "name": "npc_dota_hero_lone_druid",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Carry", "Pusher", "Durable"],
     "img": "/apps/dota2/images/dota_react/heroes/lone_druid.png?",
@@ -3012,7 +3012,7 @@
   "88": {
     "id": 88,
     "name": "npc_dota_hero_nyx_assassin",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Disabler", "Nuker", "Initiator", "Escape"],
     "img": "/apps/dota2/images/dota_react/heroes/nyx_assassin.png?",
@@ -3117,7 +3117,7 @@
   "91": {
     "id": 91,
     "name": "npc_dota_hero_wisp",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Escape", "Nuker"],
     "img": "/apps/dota2/images/dota_react/heroes/wisp.png?",
@@ -3152,7 +3152,7 @@
   "92": {
     "id": 92,
     "name": "npc_dota_hero_visage",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Nuker", "Durable", "Disabler", "Pusher"],
     "img": "/apps/dota2/images/dota_react/heroes/visage.png?",
@@ -3327,7 +3327,7 @@
   "97": {
     "id": 97,
     "name": "npc_dota_hero_magnataur",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Initiator", "Disabler", "Nuker", "Escape"],
     "img": "/apps/dota2/images/dota_react/heroes/magnataur.png?",
@@ -3502,7 +3502,7 @@
   "102": {
     "id": 102,
     "name": "npc_dota_hero_abaddon",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Support", "Carry", "Durable"],
     "img": "/apps/dota2/images/dota_react/heroes/abaddon.png?",
@@ -3607,7 +3607,7 @@
   "105": {
     "id": 105,
     "name": "npc_dota_hero_techies",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Nuker", "Disabler"],
     "img": "/apps/dota2/images/dota_react/heroes/techies.png?",
@@ -3782,7 +3782,7 @@
   "110": {
     "id": 110,
     "name": "npc_dota_hero_phoenix",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Nuker", "Initiator", "Escape", "Disabler"],
     "img": "/apps/dota2/images/dota_react/heroes/phoenix.png?",
@@ -3852,7 +3852,7 @@
   "112": {
     "id": 112,
     "name": "npc_dota_hero_winter_wyvern",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Disabler", "Nuker"],
     "img": "/apps/dota2/images/dota_react/heroes/winter_wyvern.png?",
@@ -3957,7 +3957,7 @@
   "119": {
     "id": 119,
     "name": "npc_dota_hero_dark_willow",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Nuker", "Disabler", "Escape"],
     "img": "/apps/dota2/images/dota_react/heroes/dark_willow.png?",
@@ -3992,7 +3992,7 @@
   "120": {
     "id": 120,
     "name": "npc_dota_hero_pangolier",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Carry", "Nuker", "Disabler", "Durable", "Escape", "Initiator"],
     "img": "/apps/dota2/images/dota_react/heroes/pangolier.png?",
@@ -4097,7 +4097,7 @@
   "126": {
     "id": 126,
     "name": "npc_dota_hero_void_spirit",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Carry", "Escape", "Nuker", "Disabler"],
     "img": "/apps/dota2/images/dota_react/heroes/void_spirit.png?",
@@ -4132,7 +4132,7 @@
   "128": {
     "id": 128,
     "name": "npc_dota_hero_snapfire",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Ranged",
     "roles": ["Support", "Nuker", "Disabler", "Escape"],
     "img": "/apps/dota2/images/dota_react/heroes/snapfire.png?",
@@ -4272,7 +4272,7 @@
   "136": {
     "id": 136,
     "name": "npc_dota_hero_marci",
-    "primary_attr": "all",
+    "primary_attr": "uni",
     "attack_type": "Melee",
     "roles": ["Support", "Carry", "Initiator", "Disabler", "Escape"],
     "img": "/apps/dota2/images/dota_react/heroes/marci.png?",

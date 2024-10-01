@@ -166,9 +166,7 @@ function isColumnEnd($index, $array){
                     </div>
                 </div>
                 <div class="col-6">
-                    <?php
-                    renderHero($heroUrlName);
-                    ?>
+                    <?php renderHero($heroUrlName);?>
                 </div>
             </div>
         </div>
@@ -181,15 +179,11 @@ function isColumnEnd($index, $array){
                     <? echo "<img class='w100' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/{$heroUrlName}.png'>" ?>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12 d-flex flex-column align-items-start gap-2 border-end">
-                    <?php
-                    displayAttributes($attributes, $attributesIcons, $attributesGain);
-                    ?>
+                    <?php displayAttributes($attributes, $attributesIcons, $attributesGain);?>
                 </div>
         
                 <div class="col-md-7 col-sm-12 col-xs-12 ps-5">
-                    <?php
-                    displayRoles($roles, $heroRoles);
-                    ?>
+                    <?php displayRoles($roles, $heroRoles);?>
                 </div>
 
             </div>
