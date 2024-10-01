@@ -21,7 +21,7 @@ function createHeroesTable($heroes)
     $count = 0;
     foreach ($heroes as $hero) {
         $heroName = strtolower(str_replace(array(' ', "'"), array('-', ''), $hero->localized_name));
-        if (strpos($heroName, $inputValue) !== false || $inputValue === '') {
+        if (str_contains($heroName, $inputValue) !== false || ($inputValue === '')) {
             checkBeginRow($count);
             echo ("
                 <td class='heroes-images px-2 py-2'>
@@ -154,7 +154,7 @@ function getFormValue()
                 <button class="btn" type="submit" id="search-bar-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <input id="search-bar-input" name="search-bar-input" type="search" class="form-control" placeholder="Search..." autocomplete="off">
+                <input id="search-bar-input" name="search-bar-input" type="search" class="form-control" placeholder="Search..." <?php echo "value='".getFormValue()."'"?>>
             </form>
         </div>
         <div>
