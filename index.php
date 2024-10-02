@@ -51,10 +51,11 @@ function displayAttributes($attributesIcons)
     $id = 0;
     foreach ($attributesIcons as $icon) {
         echo (
-            "   
-                <div>
-                    <img id='attribute-$id' role='button' tabindex='-1' aria-pressed='false'class='img-fluid attributes' src='public/images/{$icon}'>
-                </div>"
+            "<div>
+                <form method='post'>
+                    <img id='attribute-$id' role='button' name='attribute-$id' tabindex='-1' aria-pressed='false'class='img-fluid attributes' src='public/images/{$icon}'>
+                </form>
+            </div>"
         );
         $id++;
     };
