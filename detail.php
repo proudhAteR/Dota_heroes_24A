@@ -130,12 +130,12 @@ function isColumnEnd($index, $array){
 
                     </div>
                     <div class="mb-3">
-                        <h1><? echo $lastPart ?></h1>
-                        <span class="subheading"><?php echo $response['pageProps']['messages']["dota.heroes.npc_dota_hero_$heroUrlName.npedesc1"]; ?></span>
+                        <h1><?= $lastPart ?></h1>
+                        <span class="subheading"><?= $response['pageProps']['messages']["dota.heroes.npc_dota_hero_$heroUrlName.npedesc1"]; ?></span>
                     </div>
                     <div>
                         <p>
-                            <?php echo $response['pageProps']['messages']["dota.heroes.npc_dota_hero_$heroUrlName.hype"]; ?>
+                            <?= $response['pageProps']['messages']["dota.heroes.npc_dota_hero_$heroUrlName.hype"]; ?>
                         </p>
                     </div>
                     <div>
@@ -159,7 +159,7 @@ function isColumnEnd($index, $array){
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12 ">
-                    <? echo "<img class='w100' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/{$heroUrlName}.png'>" ?>
+                    <?="<img class='w100' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/{$heroUrlName}.png'>" ?>
                 </div>
                 <div class="col-md-2 col-sm-6 col-xs-12 d-flex flex-column align-items-start gap-2 border-end">
                     <?php displayAttributes($attributes, $attributesIcons, $attributesGain);?>
