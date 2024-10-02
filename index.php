@@ -52,9 +52,8 @@ function displayAttributes($attributesIcons)
     foreach ($attributesIcons as $icon) {
         echo (
             "<div>
-                <form method='post'>
-                    <img id='attribute-$id' role='button' name='attribute-$id' tabindex='-1' aria-pressed='false'class='img-fluid attributes' src='public/images/{$icon}'>
-                </form>
+                <img id='attribute-$id' role='button' name='attribute-$id' tabindex='-1' aria-pressed='false'class='img-fluid attributes' src='public/images/{$icon}'>
+
             </div>"
         );
         $id++;

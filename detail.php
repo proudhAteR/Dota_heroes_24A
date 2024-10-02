@@ -5,10 +5,9 @@ $lastPart = strtolower(basename($url));
 $PAGE_ATTRIBUTES = [
     'title' => "Dota 2 | $lastPart",
 ];
-
-
 $apiUrl = "https://mapi.cegeplabs.qc.ca/web/heroes/$lastPart";
 $response = json_decode(file_get_contents($apiUrl), true);
+$JSON_heroes = json_decode(file_get_contents('includes/data/heroes.json'), true);
 $heroUrlName = $response['pageProps']['pageProps']['gameData']['npcShortName'];
 $primaryAbility = explode('.', $response['pageProps']['pageProps']['gameData']['primary_attr'])[1];
 $attackType = explode('DOTA_Chat_', $response['pageProps']['pageProps']['gameData']['attack_type'])[1];
@@ -49,10 +48,8 @@ $roles = [
 
 ];
 
-function api_log($value)
-{
-    echo "<script>fetch('$value').then(response => response.json()).then(data => console.log(data))</script>";
-}
+console_log($response);
+
 function console_log($value)
 {
     echo "<script>console.log(" . json_encode($value) . ")</script>";
@@ -102,6 +99,14 @@ function displayRoles($roles, $heroRoles)
         }
     }
 }
+function getLocalized_name($JSON_heroes, $heroUrlName){
+    foreach($JSON_heroes as $hero){
+        if(str_contains(explode('npc_dota_hero_',$hero['name'])[1], $heroUrlName)){
+            return $hero['localized_name'];
+        }
+        
+    }
+}
 function calculateWidth($rating){
     return floor(($rating / 3) * 100);
 }
@@ -130,7 +135,7 @@ function isColumnEnd($index, $array){
 
                     </div>
                     <div class="mb-3">
-                        <h1><?= $lastPart ?></h1>
+                        <h1><?= getLocalized_name($JSON_heroes, $heroUrlName) ?></h1>
                         <span class="subheading"><?= $response['pageProps']['messages']["dota.heroes.npc_dota_hero_$heroUrlName.npedesc1"]; ?></span>
                     </div>
                     <div>
