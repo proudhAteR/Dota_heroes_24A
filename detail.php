@@ -112,10 +112,9 @@ function isColumnEnd($index, $array){
     return $index % 3 == 2 || $index == count($array) - 1;
 }
 ?>
-<?php require_once 'includes/shared/head.php' ?>
+<?php require_once 'includes/shared/head.php'?>
     <div>
         <div class="hero-background-gradient"></div>
-
         <div class="container">
             <div class="row">
                 <div class="col-6 gy-5">
