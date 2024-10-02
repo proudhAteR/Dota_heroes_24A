@@ -2,6 +2,11 @@
 $url = $_SERVER['REQUEST_URI'];
 $lastPart = strtolower(basename($url));
 
+$PAGE_ATTRIBUTES = [
+    'title' => "Dota 2 | $lastPart",
+];
+
+
 $apiUrl = "https://mapi.cegeplabs.qc.ca/web/heroes/$lastPart";
 $response = json_decode(file_get_contents($apiUrl), true);
 $heroUrlName = $response['pageProps']['pageProps']['gameData']['npcShortName'];
@@ -86,7 +91,7 @@ function displayRoles($roles, $heroRoles)
         echo '<div class="col-md-4 col-sm-4 col-xs-6">';
         echo '<span class="role">'.$roleName.'</span>';
         if (array_key_exists($roleName , $heroRoles)) {
-            $width = floor(($heroRoles[$roleName] / 3) * 100);
+            $width = calculateWidth($heroRoles[$roleName] );
         }
         echo '<div class="role-bar-wrapper">';
         echo "<div class='role-bar" . ($width != 0 ? " has-role" : "") . "' style='width: {$width}%'></div>";
@@ -97,6 +102,9 @@ function displayRoles($roles, $heroRoles)
         }
     }
 }
+function calculateWidth($rating){
+    return floor(($rating / 3) * 100);
+}
 function isColumnDebut($index){
     return $index % 3 == 0 ;
 }
@@ -104,31 +112,7 @@ function isColumnEnd($index, $array){
     return $index % 3 == 2 || $index == count($array) - 1;
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="/public/images/favicon.ico" type="image/x-icon">
-
-    <title>Dota 2 - <? echo basename($url) ?></title>
-
-    <!-- TODO: Remove CDN link and include Bootstrap files locally -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link rel="stylesheet" href="/public/stylesheets/styles.css">
-
-
-
-</head>
-
-<body class="hero-background">
+<?php require_once 'includes/shared/head.php' ?>
     <div>
         <div class="hero-background-gradient"></div>
 

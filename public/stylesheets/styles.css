@@ -134,6 +134,7 @@ a {
 .flex-grow-1 {
   color: var(--secondary-text);
 }
+
 .heroes-filter {
   font-family: "Radiance" !important;
   max-height: 2rem;
