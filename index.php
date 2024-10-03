@@ -51,7 +51,15 @@ function displayAttributes($attributesIcons)
    
     foreach ($attributesIcons as $attribute =>$icon) {
         echo (
-            "<input type='image' name='attribute' value='$attribute' class='img-fluid attributes' src='public/images/{$icon}'>"
+            "<input type='checkbox' id='image-checkbox-$attribute' name='attribute-filter' value='$attribute'>
+                <label for='image-checkbox-$attribute'>
+                    <img id='$attribute>' class='attributes' src='public/images/$icon'>
+                </label>
+            <style>
+                input[type='checkbox']:checked + label img.attributes {
+                    filter: none;
+                }
+            </style>"
         );
     };
 
@@ -59,11 +67,20 @@ function displayAttributes($attributesIcons)
 function displayComplexityDiamonds($maxComplexity)
 {
 
-    for ($i = 0; $i < $maxComplexity; $i++) {
+    for ($i = 1; $i <= $maxComplexity; $i++) {
         echo (
             "
-                <img role='button' id='complexity-$i' tabindex='$i' aria-pressed='false' class='img-fluid complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'>
+            <input type='checkbox' id='image-checkbox-$i' name='filter' value='$i'>
+                <label for='image-checkbox-$i'>
+                    <img id='$i' class='complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'>
+                </label>
+            <style>
+                input[type='checkbox']:checked + label img.complexity {
+                    filter: none;
+                }
+            </style>
             "
+            
         );
     };
 }
