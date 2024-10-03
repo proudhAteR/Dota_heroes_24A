@@ -20,15 +20,18 @@ $attributesIcons = [
 ];
 function createHeroesTable($heroes)
 {
-    $inputValue = strtolower(getFormValue("search-bar-input"));
+    $search_bar = strtolower(getFormValue("search-bar-input"));
+    $attr_filter = getFormValue('attribute-filters[]') == '' ? [''] : getFormValue('attribute-filters[]');
     $count = 0;
     foreach ($heroes as $hero) {
-        $heroName = strtolower(str_replace(array(' ', "'"), array('-', ''), $hero->localized_name));
-        if (str_contains($heroName, $inputValue) === true || ($inputValue === '')) {
+        $hero_name = strtolower(str_replace(array(' ', "'"), array('-', ''), $hero->localized_name));
+        $hero_prim_ability= $hero->primary_attr;
+
+        if ((hero_searched_in_bar($hero_name,$search_bar) && !search_is_empty($search_bar) || in_array($hero_prim_ability,$attr_filter) || forms_are_empty($search_bar,$attr_filter))){
             checkBeginRow($count);
             echo ("
                 <td class='heroes-images px-2 py-2'>
-                    <a href='detail.php/{$heroName}'>
+                    <a href='detail.php/{$hero_name}'>
                         <div class='image-overlay'>
                             <img src='https://cdn.akamai.steamstatic.com/{$hero->img}'>
                             <div class='overlay justify-content-start'>
@@ -46,12 +49,26 @@ function createHeroesTable($heroes)
         }
     };
 }
+function attr_filter_is_empty($attr_filter){
+    return $attr_filter[0] === '';
+}
+function search_is_empty($search_bar){
+    return $search_bar === '';
+}
+function hero_searched_in_bar($hero_name, $search_bar){
+    return str_contains($hero_name, $search_bar);
+}
+
+function forms_are_empty($search_bar, $attr_filter){
+    return search_is_empty($search_bar) && attr_filter_is_empty($attr_filter);
+}
+
 function displayAttributes($attributesIcons)
 {
    
     foreach ($attributesIcons as $attribute =>$icon) {
         echo (
-            "<input type='checkbox' id='image-checkbox-$attribute' name='attribute-filter' value='$attribute'>
+            "<input type='checkbox' id='image-checkbox-$attribute' name='attribute-filters[]' value='$attribute'>
                 <label for='image-checkbox-$attribute'>
                     <img id='$attribute>' class='attributes' src='public/images/$icon'>
                 </label>
@@ -70,7 +87,7 @@ function displayComplexityDiamonds($maxComplexity)
     for ($i = 1; $i <= $maxComplexity; $i++) {
         echo (
             "
-            <input type='checkbox' id='image-checkbox-$i' name='filter' value='$i'>
+            <input type='checkbox' id='image-checkbox-$i' name='complexity-filters[]' value='$i'>
                 <label for='image-checkbox-$i'>
                     <img id='$i' class='complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'>
                 </label>
@@ -98,15 +115,17 @@ function checkEndRow($count, $heroes)
 }
 function console_log($value)
 {
-    echo "<script>console.log(" . $value . ")</script>";
+    echo "<script>console.log(" .json_encode( $value) . ")</script>";
 }
 function getFormValue(string $form)
 {
+    $form = explode('[', $form)[0];
+
     return isset($_GET[$form]) ? $_GET[$form] : '';
 }
 
 ?>
-<?php require_once 'includes/shared/head.php' ?>
+<?php require_once 'includes/shared/head.php';?>
 <div class="container">
     <div class="text-center py-5">
         <h1>Choose your Hero</h1>
@@ -135,24 +154,24 @@ function getFormValue(string $form)
             ATTENTION: Toute la logique des filtres doit fonctionner sans aucun JavaScript! Tout doit être fait côté serveur en PHP.
             Une fois le fonctionnement est fait sans le JavaScript, nous pouvons intégrer la librairie HTMX pour un côté dynamique pour un rafraîchissement partiel de la page.
         -->
-    <div class="heroes-filter d-flex align-items-center justify-content-between mx-auto text-center rounded mb-4">
+    <form method="get" class="heroes-filter d-flex align-items-center justify-content-between mx-auto text-center rounded mb-4">
         <h6>Filter Heroes</h6>
-        <form method="get" class="d-flex align-items-center ">
+        <div class="d-flex align-items-center ">
             <div class="p-2 pe-3 flex-grow-1">Attributes</div>
             <?php displayAttributes($attributesIcons); ?>
-        </form>
+        </div>
         <div class="d-flex align-items-center ">
             <div class="p-2 pe-3 flex-grow-1">Complexity</div>
             <!--TODO : Change the css for the complexity so it does not affect the attributes and make it cumulative-->
             <?php displayComplexityDiamonds($maxComplexity); ?>
         </div>
-        <form method="get" data-bs-theme='dark' class="input-group w-25">
+        <div data-bs-theme='dark' class="input-group w-25">
+            <input id="search-bar-input" name="search-bar-input" type="search" class="form-control" placeholder="Search..." value="<?= getFormValue('search-bar-input')?>">
             <button class="btn" type="submit" id="search-bar-button">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-            <input id="search-bar-input" name="search-bar-input" type="search" class="form-control" placeholder="Search..." <?php echo "value='" . getFormValue("search-bar-input") . "'" ?>>
-        </form>
-    </div>
+        </div>
+    </form>
     <div>
         <table class="heroes-table  mb-4">
             <?php createHeroesTable($heroes); ?>
