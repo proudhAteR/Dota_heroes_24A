@@ -21,10 +21,16 @@ class detailServices
         $this->apiUrl = $apiUrl;
         $this->response = $this->call_api($this->apiUrl);
     }
+    public function get_hero_description(){
+        return $this->response['pageProps']['messages']["dota.heroes.npc_dota_hero_".$this->get_hero_url_name().".npedesc1"];
+    }
 
     private function call_api()
     {
         return json_decode(file_get_contents($this->apiUrl), true);
+    }
+    public function get_hero_hype(){
+        return $this->response['pageProps']['messages']["dota.heroes.npc_dota_hero_".$this->get_hero_url_name().".hype"];
     }
     public function get_roles_list()
     {

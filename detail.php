@@ -8,7 +8,6 @@ $PAGE_ATTRIBUTES = [
 ];
 $apiUrl = "https://mapi.cegeplabs.qc.ca/web/heroes/$lastPart";
 $service = new detailServices($apiUrl);
-$response = json_decode(file_get_contents($apiUrl), true);;
 $JSON_heroes = $service->get_json_heroes();
 $heroUrlName = $service->get_hero_url_name();
 $primaryAbility = $service->get_hero_prim_ability();
@@ -48,11 +47,11 @@ function isColumnEnd($index, $array)
                 </div>
                 <div class="mb-3">
                     <h1><?= $service->getLocalized_name($heroUrlName) ?></h1>
-                    <span class="subheading"><?= $response['pageProps']['messages']["dota.heroes.npc_dota_hero_$heroUrlName.npedesc1"]; ?></span>
+                    <span class="subheading"><?=$service->get_hero_description()?></span>
                 </div>
                 <div>
                     <p>
-                        <?= $response['pageProps']['messages']["dota.heroes.npc_dota_hero_$heroUrlName.hype"]; ?>
+                        <?= $service->get_hero_hype() ?>
                     </p>
                 </div>
                 <div>
