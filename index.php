@@ -20,7 +20,7 @@ $attributesIcons = [
 ];
 function createHeroesTable($heroes)
 {
-    $inputValue = strtolower(getFormValue());
+    $inputValue = strtolower(getFormValue("search-bar-input"));
     $count = 0;
     foreach ($heroes as $hero) {
         $heroName = strtolower(str_replace(array(' ', "'"), array('-', ''), $hero->localized_name));
@@ -48,27 +48,25 @@ function createHeroesTable($heroes)
 }
 function displayAttributes($attributesIcons)
 {
-    $id = 0;
-    foreach ($attributesIcons as $icon) {
+   
+    foreach ($attributesIcons as $attribute =>$icon) {
         echo (
-            "<div>
-                <img id='attribute-$id' role='button' name='attribute-$id' tabindex='-1' aria-pressed='false'class='img-fluid attributes' src='public/images/{$icon}'>
-
-            </div>"
+            "<input type='image' name='attribute' value='$attribute' class='img-fluid attributes' src='public/images/{$icon}'>"
         );
-        $id++;
     };
-}
 
+}
 function displayComplexityDiamonds($maxComplexity)
 {
+
     for ($i = 0; $i < $maxComplexity; $i++) {
         echo (
-            "<div><img role='button' id ='complexity-$i' tabindex='$i' aria-pressed='false' class='img-fluid complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'></div>"
+            "
+                <img role='button' id='complexity-$i' tabindex='$i' aria-pressed='false' class='img-fluid complexity' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png?'>
+            "
         );
     };
 }
-
 function checkBeginRow($count)
 {
     if ($count % 5 == 0) {
@@ -85,9 +83,9 @@ function console_log($value)
 {
     echo "<script>console.log(" . $value . ")</script>";
 }
-function getFormValue()
+function getFormValue(string $form)
 {
-    return isset($_GET['search-bar-input']) ? $_GET['search-bar-input'] : '';
+    return isset($_GET[$form]) ? $_GET[$form] : '';
 }
 
 ?>
@@ -122,20 +120,20 @@ function getFormValue()
         -->
     <div class="heroes-filter d-flex align-items-center justify-content-between mx-auto text-center rounded mb-4">
         <h6>Filter Heroes</h6>
-        <div class="d-flex attributes align-items-center ">
+        <form method="get" class="d-flex align-items-center ">
             <div class="p-2 pe-3 flex-grow-1">Attributes</div>
             <?php displayAttributes($attributesIcons); ?>
-        </div>
-        <div class="d-flex attributes align-items-center ">
+        </form>
+        <div class="d-flex align-items-center ">
             <div class="p-2 pe-3 flex-grow-1">Complexity</div>
             <!--TODO : Change the css for the complexity so it does not affect the attributes and make it cumulative-->
             <?php displayComplexityDiamonds($maxComplexity); ?>
         </div>
-        <form method="get" data-bs-theme='dark' class="input-group w-25 ">
+        <form method="get" data-bs-theme='dark' class="input-group w-25">
             <button class="btn" type="submit" id="search-bar-button">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-            <input id="search-bar-input" name="search-bar-input" type="search" class="form-control" placeholder="Search..." <?php echo "value='" . getFormValue() . "'" ?>>
+            <input id="search-bar-input" name="search-bar-input" type="search" class="form-control" placeholder="Search..." <?php echo "value='" . getFormValue("search-bar-input") . "'" ?>>
         </form>
     </div>
     <div>
