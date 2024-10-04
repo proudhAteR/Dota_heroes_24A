@@ -30,7 +30,7 @@ function isColumnEnd($index, $array)
                     <a href="../index.php"><i class="fa-solid fa-arrow-left"></i></a>
                 </div>
                 <div class="hero-type | mb-2">
-                    <?php $service->displayHeroType() ?>
+                    <?php $service->hero_type_display() ?>
                 </div>
                 <div class="mb-3">
                     <h1><?= $service->getLocalized_name() ?></h1>
@@ -45,7 +45,7 @@ function isColumnEnd($index, $array)
                     <div class="secondary">Attack Type</div>
                     <div class="d-flex justify-evenly">
                         <?php
-                        $service->displayAttackType()
+                        $service->attack_type_display()
                         ?>
                     </div>
                 </div>
@@ -64,11 +64,11 @@ function isColumnEnd($index, $array)
                 <?= "<img class='w100' src='https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/heroes/{$service->get_hero_url_name()}.png'>" ?>
             </div>
             <div class="col-md-2 col-sm-6 col-xs-12 d-flex flex-column align-items-start gap-2 border-end">
-                <?php $service->displayAttributes(); ?>
+                <?php $service->attributes_display(); ?>
             </div>
 
             <div class="col-md-7 col-sm-12 col-xs-12 ps-5">
-                <?php $service->displayRoles(); ?>
+                <?php $service->roles_display(); ?>
             </div>
 
         </div>
