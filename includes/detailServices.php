@@ -37,11 +37,11 @@ class detailServices
     }
     public function renderHero()
     {
-        $heroUrlName = $this->get_hero_url_name();
-        echo '<video class="hero-render" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png" autoplay="" preload="auto" loop="" playsinline="">';
-        echo '<source type="video/mp4; codecs=hvc1" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.mov">';
-        echo '<source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.webm">';
-        echo '<img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png">';
+        $hero_url_name = $this->get_hero_url_name();
+        echo '<video class="hero-render" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $hero_url_name . '.png" autoplay="" preload="auto" loop="" playsinline="">';
+        echo '<source type="video/mp4; codecs=hvc1" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $hero_url_name . '.mov">';
+        echo '<source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $hero_url_name . '.webm">';
+        echo '<img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $hero_url_name . '.png">';
         echo '</video>';
     }
     public function attributes_display()
@@ -89,9 +89,9 @@ class detailServices
 
     public function getLocalized_name()
     {
-        $heroUrlName = $this->get_hero_url_name();
+        $hero_url_name = $this->get_hero_url_name();
         foreach ($this->get_json_heroes() as $hero) {
-            if (str_contains(explode('npc_dota_hero_', $hero['name'])[1], $heroUrlName)) {
+            if (str_contains(explode('npc_dota_hero_', $hero['name'])[1], $hero_url_name)) {
                 return $hero['localized_name'];
             }
         }

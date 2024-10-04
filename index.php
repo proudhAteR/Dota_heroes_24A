@@ -27,15 +27,6 @@ function checkEndRow($count, $heroes)
         <p>From magical tacticians to fierce brutes and cunning rogues, Dota 2's hero pool is massive and limitlessly diverse. Unleash incredible abilities and devastating ultimates on your way to victory.</p>
     </div>
     <!--
-            Pour cette page, refaite un layout similaire à: https://www.dota2.com/heroes
-                1) Titre Choose your Hero
-                2) Paragraphe de texte
-                3) La barre de filtres
-                4) La liste des héros
-                5) Un effet de hover pour afficher le nom et l'attribut principal du héro (Force, Agilité, Intelligence, Universel)
-        -->
-
-    <!--
             Pour les filtres, il faudra ajouter un formulaire contenant :
                 1) Des cases à cocher (checkbox) pour les attributs (Force, Agilité, Intelligence, Universel)
                 2) Un champ de texte pour pouvoir entre du texte (e.g. le nom d'un héro)
@@ -57,7 +48,7 @@ function checkEndRow($count, $heroes)
         </div>
         <div class="d-flex align-items-center ">
             <div class="p-2 pe-3 flex-grow-1">Complexity</div>
-            <?php $services->displayComplexityDiamonds(); ?>
+            <?php $services->complexity_select_row(); ?>
         </div>
         <div data-bs-theme='dark' class="input-group w-25">
             <input id="search-bar-input" name="search-bar-input" type="search" class="form-control" placeholder="Search..." value="<?= $services->getFormValue('search-bar-input')?>">

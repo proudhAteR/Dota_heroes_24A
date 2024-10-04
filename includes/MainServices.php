@@ -27,28 +27,6 @@ class MainServices
         $this->heroes = json_decode(file_get_contents($json_file));
     }
 
-    public function displayComplexityDiamonds()
-    {
-        $maxComplexity = 3;
-
-        for ($i = 1; $i <= $maxComplexity; $i++) {
-            echo (
-                "
-            <input type='checkbox' id='image-checkbox-$i' name='complexity-filters[]' value='$i'>
-                <label for='image-checkbox-$i'>
-                    <img id='$i' class='complexity' src='$this->complexity_diamond_src'>
-                </label>
-            <style>
-                input[type='checkbox']:checked + label img.complexity {
-                    filter: none;
-                }
-            </style>
-            "
-
-            );
-        };
-    }
-
     public function heroes_table_creation()
     {
         $count = 0;
@@ -77,6 +55,27 @@ class MainServices
                 $count++;
                 checkEndRow($count, $this->heroes);
             }
+        };
+    }
+
+    public function complexity_select_row()
+    {
+        $maxComplexity = 3;
+
+        for ($i = 1; $i <= $maxComplexity; $i++) {
+            echo (
+                "
+            <input type='checkbox' id='image-checkbox-$i' name='complexity-filters[]' value='$i'>
+                <label for='image-checkbox-$i'>
+                    <img id='$i' class='complexity' src='$this->complexity_diamond_src'>
+                </label>
+            <style>
+                input[type='checkbox']:checked + label img.complexity {
+                    filter: none;
+                }
+            </style>
+            "
+            );
         };
     }
 
