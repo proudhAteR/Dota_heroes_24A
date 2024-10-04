@@ -21,16 +21,18 @@ class detailServices
         $this->apiUrl = $apiUrl;
         $this->response = $this->call_api($this->apiUrl);
     }
-    public function get_hero_description(){
-        return $this->response['pageProps']['messages']["dota.heroes.npc_dota_hero_".$this->get_hero_url_name().".npedesc1"];
+    public function get_hero_description()
+    {
+        return $this->response['pageProps']['messages']["dota.heroes.npc_dota_hero_" . $this->get_hero_url_name() . ".npedesc1"];
     }
 
     private function call_api()
     {
         return json_decode(file_get_contents($this->apiUrl), true);
     }
-    public function get_hero_hype(){
-        return $this->response['pageProps']['messages']["dota.heroes.npc_dota_hero_".$this->get_hero_url_name().".hype"];
+    public function get_hero_hype()
+    {
+        return $this->response['pageProps']['messages']["dota.heroes.npc_dota_hero_" . $this->get_hero_url_name() . ".hype"];
     }
     public function get_roles_list()
     {
@@ -90,16 +92,20 @@ class detailServices
     {
         echo "<script>console.log(" . json_encode($value) . ")</script>";
     }
-    public function renderHero($heroUrlName)
+    public function renderHero()
     {
+        $heroUrlName = $this->get_hero_url_name();
         echo '<video class="hero-render" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png" autoplay="" preload="auto" loop="" playsinline="">';
         echo '<source type="video/mp4; codecs=hvc1" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.mov">';
         echo '<source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.webm">';
         echo '<img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $heroUrlName . '.png">';
         echo '</video>';
     }
-    public function displayAttributes($attributes, $attributesGain)
+    public function displayAttributes()
     {
+       
+        $attributes = $this->get_hero_attributes();
+        $attributesGain = $this->get_attr_gains();
         $count = 0;
         foreach ($attributes as $key => $attribute) {
             $icon = array_keys($this->get_attr_icons())[$key];
@@ -112,8 +118,10 @@ class detailServices
             $count++;
         }
     }
-    public function displayRoles($roles, $heroRoles)
+    public function displayRoles()
     {
+        $heroRoles = $this->get_hero_roles();
+        $roles = $this->get_roles_list();
         for ($i = 0; $i < count($roles); $i++) {
             $width = '0';
             $roleName = $roles[$i]['name'];
@@ -136,21 +144,24 @@ class detailServices
         }
     }
 
-    public function getLocalized_name($heroUrlName)
+    public function getLocalized_name()
     {
+        $heroUrlName = $this->get_hero_url_name();
         foreach ($this->get_json_heroes() as $hero) {
             if (str_contains(explode('npc_dota_hero_', $hero['name'])[1], $heroUrlName)) {
                 return $hero['localized_name'];
             }
         }
     }
-    function displayHeroType($primaryAbility)
+    function displayHeroType()
     {
+        $primaryAbility = $this->get_hero_prim_ability();
         echo "<img src='/public/images/" . substr($primaryAbility, 0, 3) . "-icon.png' width='32' height='32' alt='$primaryAbility'>";
         echo "<span> $primaryAbility</span>";
     }
-    function displayAttackType($attackType)
+    function displayAttackType()
     {
+        $attackType = $this->get_hero_attack_type();
         echo "<img src='/public/images/" . strtolower($attackType) . ".svg' width='32' height='32' alt='$attackType'>";
         echo "<span class = 'ps-2'>$attackType </span>";
     }
