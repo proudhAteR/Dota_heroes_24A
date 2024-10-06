@@ -56,7 +56,9 @@ h1 {
   font-weight: 700;
   letter-spacing: 3px;
 }
-
+i:hover{
+  cursor: pointer;
+}
 a {
   color: inherit;
 }
@@ -148,6 +150,9 @@ a {
 }
 input[type="checkbox"]{
   display: none;
+}
+label:hover{
+  cursor: pointer;
 }
 
 .attributes,  .complexity {

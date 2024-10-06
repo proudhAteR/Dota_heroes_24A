@@ -21,6 +21,7 @@ class detailServices
         $this->apiUrl = $apiUrl;
         $this->response = $this->call_api($this->apiUrl);
     }
+    
     private function get_hero_roles(): array
     {
         $heroRoles = $this->response['pageProps']['pageProps']['gameData']['roles'];

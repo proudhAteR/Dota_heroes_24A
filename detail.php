@@ -1,13 +1,16 @@
 <?php
 require 'includes/detailServices.php';
 
+
+
 $url = $_SERVER['REQUEST_URI'];
 $lastPart = strtolower(basename($url));
-$PAGE_ATTRIBUTES = [
-    'title' => "Dota 2 | $lastPart",
-];
 $apiUrl = "https://mapi.cegeplabs.qc.ca/web/heroes/$lastPart";
 $service = new detailServices($apiUrl);
+$PAGE_ATTRIBUTES = [
+    'title' => "Dota 2 | ".$service->getLocalized_name().""
+];
+
 
 function isColumnDebut($index)
 {
