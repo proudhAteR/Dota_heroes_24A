@@ -54,7 +54,7 @@ function isColumnEnd($index, $array)
                 </div>
             </div>
             <div class="col-6">
-                <?php $service->renderHero(); ?>
+                <?php $service->hero_rendering(); ?>
             </div>
         </div>
     </div>

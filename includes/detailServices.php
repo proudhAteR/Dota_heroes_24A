@@ -21,7 +21,7 @@ class detailServices
         $this->apiUrl = $apiUrl;
         $this->response = $this->call_api($this->apiUrl);
     }
-    
+
     private function get_hero_roles(): array
     {
         $heroRoles = $this->response['pageProps']['pageProps']['gameData']['roles'];
@@ -36,7 +36,7 @@ class detailServices
     {
         echo "<script>console.log(" . json_encode($value) . ")</script>";
     }
-    public function renderHero()
+    public function hero_rendering()
     {
         $hero_url_name = $this->get_hero_url_name();
         echo '<video class="hero-render" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/' . $hero_url_name . '.png" autoplay="" preload="auto" loop="" playsinline="">';
