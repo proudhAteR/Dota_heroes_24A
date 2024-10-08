@@ -26,20 +26,6 @@ function checkEndRow($count, $heroes)
         <h1>Choose your Hero</h1>
         <p>From magical tacticians to fierce brutes and cunning rogues, Dota 2's hero pool is massive and limitlessly diverse. Unleash incredible abilities and devastating ultimates on your way to victory.</p>
     </div>
-    <!--
-            Pour les filtres, il faudra ajouter un formulaire contenant :
-                1) Des cases à cocher (checkbox) pour les attributs (Force, Agilité, Intelligence, Universel)
-                2) Un champ de texte pour pouvoir entre du texte (e.g. le nom d'un héro)
-                3) Un bouton pour pouvoir faire la recherche
-            La recherche se fera côté serveur en PHP. Il faudra récupérer les attributs qu'on veut filtrer (Force, Agilité, Intelligence, Universel) et le nom du héro à filter.
-                1) Si aucun filtre n'est sélectionné et que rien n'est entré dans le champ de texte, on affiche tous les héros (affichage par défaut)
-                2) Si un ou plusieurs filtres sont sélectionnés, nous faisons le filtre sur ces éléments :
-                    - Si nous avons une valeur dans le champ de texte, nous filtrons sur le nom des héros et affichons tous les héros ayant la valeur dans leur nom (e.g. ard ==> Arc Warden)
-                    - Si nous sélectionnons un ou des attributs, nous faisons un filtre par OU (e.g. si on choisit Force et Intelligence, nous affichons les héros sont de type Force ou Intelligence)
-                    - Les deux filtres se combinent (e.g. le nom et les attributs).
-            ATTENTION: Toute la logique des filtres doit fonctionner sans aucun JavaScript! Tout doit être fait côté serveur en PHP.
-            Une fois le fonctionnement est fait sans le JavaScript, nous pouvons intégrer la librairie HTMX pour un côté dynamique pour un rafraîchissement partiel de la page.
-        -->
     <form method="get" class="heroes-filter d-flex align-items-center justify-content-between mx-auto text-center rounded mb-4">
         <h6>Filter Heroes</h6>
         <div class="d-flex align-items-center ">

@@ -34,8 +34,7 @@ class MainServices
             $hero_name = strtolower(str_replace(array(' ', "'"), array('-', ''), $hero->localized_name));
             $hero_prim_ability = $hero->primary_attr;
 
-            if (($this->hero_searched_in_bar($hero_name, $this->search_bar_input) && !$this->search_is_empty($this->search_bar_input) ||
-                in_array($hero_prim_ability, $this->attr_filter) || $this->forms_are_empty($this->search_bar_input, $this->attr_filter))) {
+            if ($this->pass_filter($hero_name, $hero_prim_ability)) {
                 checkBeginRow($count);
                 echo ("
                 <td class='heroes-images px-2 py-2'>
@@ -56,6 +55,11 @@ class MainServices
                 checkEndRow($count, $this->heroes);
             }
         };
+    }
+    private function pass_filter($hero_name, $hero_prim_ability)
+    {
+        return ($this->hero_searched_in_bar($hero_name, $this->search_bar_input) && !$this->search_is_empty($this->search_bar_input) ||
+        in_array($hero_prim_ability, $this->attr_filter) || $this->forms_are_empty($this->search_bar_input, $this->attr_filter));
     }
 
     public function complexity_select_row()
