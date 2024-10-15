@@ -1,7 +1,5 @@
 <?php
-require 'includes/detailServices.php';
-
-
+require_once 'includes/detailServices.php';
 
 $url = $_SERVER['REQUEST_URI'];
 $lastPart = strtolower(basename($url));
@@ -10,7 +8,6 @@ $service = new detailServices($apiUrl);
 $PAGE_ATTRIBUTES = [
     'title' => "Dota 2 | ".$service->getLocalized_name().""
 ];
-
 
 function isColumnDebut($index)
 {
