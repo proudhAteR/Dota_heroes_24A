@@ -20,11 +20,14 @@ function checkEndRow($count, $heroes)
 }
 
 ?>
-<?php require_once 'includes/shared/head.php';?>
+<?php require_once 'includes/shared/head.php'; ?>
 <div class="container">
     <div class="text-center py-5">
         <h1>Choose your Hero</h1>
-        <p>From magical tacticians to fierce brutes and cunning rogues, Dota 2's hero pool is massive and limitlessly diverse. Unleash incredible abilities and devastating ultimates on your way to victory.</p>
+        <p>
+            From magical tacticians to fierce brutes and cunning rogues, Dota 2's hero pool is massive and limitlessly diverse.
+            Unleash incredible abilities and devastating ultimates on your way to victory.
+        </p>
     </div>
     <form method="get" class="heroes-filter d-flex align-items-center justify-content-between mx-auto text-center rounded mb-4">
         <h6>Filter Heroes</h6>
@@ -37,7 +40,7 @@ function checkEndRow($count, $heroes)
             <?php $services->complexity_select_row(); ?>
         </div>
         <div data-bs-theme='dark' class="input-group w-25">
-            <input id="search-bar-input" name="search-bar-input" type="search" class="form-control" placeholder="Search..." value="<?= $services->getFormValue('search-bar-input')?>">
+            <input id="search-bar-input" name="search-bar-input" type="search" class="form-control" placeholder="Search..." value="<?= $services->getFormValue('search-bar-input') ?>">
             <button class="btn" type="submit" id="search-bar-button">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
