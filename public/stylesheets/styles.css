@@ -161,10 +161,6 @@ label:hover{
 .attributes,  .complexity {
   filter: brightness(50%) contrast(75%) grayscale(100%);
   transition: filter 0.3s ease;
-}
-
-
-.attributes , .complexity {
   max-width: 40px;
   max-height: 40px;
 }

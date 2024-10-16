@@ -143,7 +143,7 @@ class detailServices
     }
 
     private function call_api()
-    {
+    {  
         return json_decode(file_get_contents($this->apiUrl), true);
     }
     public function get_hero_hype()
